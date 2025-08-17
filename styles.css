@@ -1,0 +1,42 @@
+/* Main styles */
+.slogan h2 {
+    font-size: 2rem;
+    color: var(--purple);
+    text-align: center;
+    margin: 40px auto;
+    max-width: 800px;
+    line-height: 1.4;
+    text-shadow: 0 1px 0 var(--yellow);
+}
+
+/* Gallery */
+.gallery-section {
+    padding: 20px 0 40px;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    padding: 20px;
+}
+
+.gallery-img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    border-radius: 16px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(110, 193, 228, 0.08);
+    border: 1.5px solid var(--blue);
+}
+
+.gallery-img:hover {
+    transform: scale(1.02) !important;
+    box-shadow: 0 8px 24px rgba(126, 87, 194, 0.12);
+    border-color: var(--orange);
+}
+
+/* Rest of your CSS here... */
+/* Copy all the CSS from the style tag in your HTML */

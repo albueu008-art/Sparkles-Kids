@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SparkleKids - Servicii profesionale pentru petreceri copii. Distractie si zambete pentru micutii tai!">
+    <meta name="theme-color" content="#7e57c2">
+    <title>Sparkle Kids - Profesional Party Services</title>
+    
+    <!-- Critical preloads -->
+    <link rel="preload" href="images/logo.webp" as="image" type="image/webp" fetchpriority="high">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- PWA support -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="apple-touch-icon" href="images/logo-192.webp">
+    
+    <!-- Inline critical icons -->
+    <style>
+    @font-face {
+        font-family: 'FontAwesome';
+        font-display: swap;
+        src: url('data:font/woff2;base64,...') format('woff2');
+    }
+    .fas {
+        font-family: 'FontAwesome';
+        font-weight: 900;
+    }
+    .fa-star:before { content: "\\f005"; }
+    </style>
+    
+    <!-- Optimized font loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" as="style">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" media="print" onload="this.media='all'">
+    
+    <style>
+        :root {
+            --yellow: #ffe066;
+            --orange: #ffb347;
+            --blue: #6ec1e4;
+            --green: #8fd19e;
+            --pink: #f7b6d2;
+            --purple: #7e57c2;
+            --dark-blue: #344675;
+            --white: #fff;
+            --black: #222;
+            --gray: #6c757d;
+            --light: #f9f9fb;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--black);
+            line-height: 1.6;
+            background: var(--light);
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        /* Header */
+        header {
+            background: linear-gradient(120deg, var(--blue) 0%, var(--purple) 100%);
+            color: var(--white);
+            padding: 70px 0 70px 0; /* Increased bottom padding */
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom-left-radius: 40px 30px;
+            border-bottom-right-radius: 40px 30px;
+            box-shadow: 0 4px 16px rgba(110, 193, 228, 0.10);
+        }
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 12px rgba(126, 87, 194, 0.10);
+            border: 3px solid var(--blue);
+        }
+        .logo img {
+            max-width: 80%;
+            max-height: 80%;
+        }
+        h1 {
+            font-size: 2.3rem;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            text-shadow: 0 1px 0 var(--purple);
+        }
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--yellow), var(--orange));
+            color: var(--dark-blue);
+            padding: 14px 32px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-top: 22px;
+            transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
+            box-shadow: 0 2px 8px rgba(255, 224, 102, 0.10);
+            border: none;
+            letter-spacing: 1px;
+        }
+        .cta-button:hover {
+            background: linear-gradient(90deg, var(--orange), var(--yellow));
+            color: var(--purple);
+            transform: scale(1.04);
+            box-shadow: 0 4px 16px rgba(126, 87, 194, 0.10);
+        }
+        /* Slogan */
+        .slogan {
+            padding: 40px 0 30px 0;
+            text-align: center;
+        }
+        .slogan h2 {
+            font-size: 1.6rem;
+            color: var(--blue);
+            margin-bottom: 20px;
+            text-shadow: 0 1px 0 var(--yellow);
+        }
+        /* Gallery */
+        .gallery-section {
+            margin: 40px 0 40px 0;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: 400px;
+            gap: 16px;
+            position: relative;
+            padding: 20px;
+        }
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 18px;
+            box-shadow: 0 8px 24px rgba(110, 193, 228, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            max-width: none;
+        }
+        .gallery-img:hover {
+            transform: scale(1.07) rotate(-2deg);
+            box-shadow: 0 12px 32px #b2b2ff;
+            z-index: 2;
+        }
+        
+        /* Responsive gallery styles */
+        @media (max-width: 1024px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-auto-rows: 350px;
+                gap: 12px;
+                padding: 15px;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+                grid-auto-rows: auto;
+                gap: 16px;
+                padding: 12px;
+            }
+            .gallery-img {
+                border-radius: 12px;
+                height: auto;
+                aspect-ratio: 3/2;
+                object-fit: contain;
+                background: rgba(110, 193, 228, 0.05);
+            }
+            .gallery-img:hover {
+                transform: scale(1.03);
+            }
+        }
+        
+        /* Disable rotation animations on mobile for better performance */
+        @media (max-width: 768px) {
+            .img-offset1, .img-offset2, .img-offset3 {
+                transform: none !important;
+            }
+            .gallery-img:hover {
+                transform: scale(1.03) !important;
+                rotate: 0deg !important;
+            }
+        }
+        /* Playful offsets for each image */
+        .img-offset1 { top: 0px; left: 0px; transform: translateY(-12px) rotate(-3deg); }
+        .img-offset2 { top: 0px; left: 0px; transform: translateY(16px) rotate(2deg); }
+        .img-offset3 { top: 0px; left: 0px; transform: translateY(-8px) rotate(4deg); }
+        .img-big {
+            grid-row: span 2;
+            height: 100%;
+            max-height: 380px;
+        }
+        .img-small {
+            max-width: 140px;
+            max-height: 140px;
+            aspect-ratio: 1/1;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px #ffd6e0;
+            align-self: center;
+            justify-self: center;
+        }
+        .img-normal {
+            max-width: 220px;
+            border-radius: 18px;
+        }
+        .img-rotate-left {
+            transform: rotate(-4deg);
+        }
+        .img-rotate-right {
+            transform: rotate(4deg);
+        }
+        /* Services */
+        .services {
+            padding: 40px 0 30px 0;
+        }
+        .services h2 {
+            text-align: center;
+            font-size: 1.5rem;
+            color: var(--green);
+            margin-bottom: 32px;
+            text-shadow: 0 1px 0 var(--yellow);
+        }
+        .service-category {
+            background: var(--white);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(110, 193, 228, 0.07);
+            margin-bottom: 28px;
+            transition: box-shadow 0.3s cubic-bezier(0.4,0,0.2,1), transform 0.2s;
+            border: 1.5px solid var(--blue);
+        }
+        .service-category:hover {
+            box-shadow: 0 6px 18px rgba(126, 87, 194, 0.10);
+            transform: scale(1.01);
+            border-color: var(--green);
+        }
+        .service-header {
+            padding: 18px 20px;
+            background: linear-gradient(90deg, var(--blue) 70%, var(--green) 100%);
+            color: var(--white);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s cubic-bezier(0.4,0,0.2,1);
+            font-size: 1.08rem;
+        }
+        .service-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            text-shadow: 0 1px 0 var(--purple);
+        }
+        .service-content {
+            /* Use grid for desktop, column for mobile */
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            align-items: stretch;
+            padding: 0 18px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.7s cubic-bezier(0.4,0,0.2,1), padding 0.7s cubic-bezier(0.4,0,0.2,1);
+        }
+        .service-content.show {
+            padding-top: 18px;
+            padding-bottom: 28px;
+            max-height: 9999px;
+            overflow: visible;
+        }
+        .service-content-left {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+        }
+        .service-content ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
+        }
+        .service-content-extra {
+            margin-top: 10px;
+            color: var(--green);
+            font-weight: bold;
+        }
+        .service-content-image {
+            width: 100%;
+            height: 100%;
+            min-height: 260px;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px #c7e0f7;
+            object-fit: cover;
+            background: #fff;
+            display: block;
+            max-width: 400px;
+            align-self: stretch;
+        }
+        @media (max-width: 900px) {
+            .service-content {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+            .service-content-image {
+                margin-left: 0;
+                margin-top: 12px;
+                width: 100%;
+                max-width: 100%;
+                height: 180px;
+                min-height: unset;
+                align-self: center;
+            }
+        }
+        @media (max-width: 900px) {
+            .service-content {
+                flex-direction: column !important;
+            }
+        }
+        @media (min-width: 901px) {
+            .service-content {
+                flex-direction: row !important;
+            }
+        }
+        .service-content li {
+            padding: 8px 0;
+            position: relative;
+            padding-left: 28px;
+            font-size: 1rem;
+            color: var(--dark-blue);
+        }
+        .service-content li:before {
+            content: "•";
+            color: var(--orange);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        .price-tag {
+            display: inline-block;
+            background: var(--yellow);
+            color: var(--purple);
+            padding: 3px 10px;
+            border-radius: 16px;
+            font-size: 0.98rem;
+            margin-left: 8px;
+            vertical-align: middle;
+            font-weight: bold;
+            border: 1px solid var(--orange);
+            box-shadow: 0 1px 4px rgba(255, 224, 102, 0.08);
+        }
+        .arrow {
+            transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+            font-size: 1.4rem;
+            color: var(--yellow);
+            text-shadow: 0 1px 0 var(--orange);
+        }
+        .arrow.down {
+            transform: rotate(90deg);
+        }
+        /* Staff */
+        .staff {
+            padding: 40px 0 30px 0;
+            text-align: center;
+        }
+        .staff h2 {
+            font-size: 1.5rem;
+            color: var(--pink);
+            margin-bottom: 32px;
+            text-shadow: 0 1px 0 var(--yellow);
+        }
+        .staff-leaders {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 48px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        @media (max-width: 700px) {
+            .staff-leaders {
+                flex-direction: column;
+                align-items: center;
+                gap: 24px;
+            }
+        }
+        .staff-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            justify-items: center;
+            align-items: stretch;
+        }
+        .staff-member {
+            background: var(--white);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(110, 193, 228, 0.07);
+            border: 1.5px solid var(--blue);
+            position: relative;
+            width: 100%;
+            max-width: 240px;
+            height: 360px;
+            display: flex;
+            flex-direction: column;
+            transition: box-shadow 0.3s, border-color 0.3s;
+        }
+        .staff-member:hover {
+            box-shadow: 0 8px 24px rgba(126, 87, 194, 0.13);
+            border-color: var(--orange);
+        }
+        .staff-photo {
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            position: relative;
+            transition: box-shadow 0.3s;
+            cursor: pointer;
+        }
+        .staff-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .staff-name {
+            font-size: 1.08rem;
+            font-weight: 700;
+            color: var(--purple);
+            margin: 14px 0;
+            text-shadow: 0 1px 0 var(--yellow);
+        }
+        .staff-details {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(126, 87, 194, 0.93);
+            color: #fff;
+            opacity: 0;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 24px;
+            font-size: 1rem;
+            transition: opacity 0.3s;
+        }
+        .staff-photo:hover .staff-details,
+        .staff-photo:focus .staff-details {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        @media (max-width: 1100px) {
+            .staff-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 700px) {
+            .staff-grid {
+                grid-template-columns: 1fr;
+            }
+            .staff-member {
+                max-width: 280px;
+            }
+        }
+        /* Footer */
+        footer {
+            background: linear-gradient(90deg, var(--purple), var(--blue));
+            color: var(--white);
+            padding: 32px 0;
+            text-align: center;
+            border-top-left-radius: 40px 30px;
+            border-top-right-radius: 40px 30px;
+            box-shadow: 0 -4px 16px rgba(110, 193, 228, 0.07);
+        }
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .social-links {
+            margin: 16px 0;
+        }
+        .social-links a {
+            display: inline-block;
+            color: var(--white);
+            background: var(--blue);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            line-height: 38px;
+            margin: 0 6px;
+            transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
+            font-size: 1.1rem;
+            box-shadow: 0 1px 4px rgba(255, 224, 102, 0.06);
+            border: 1.5px solid var(--white);
+        }
+        .social-links a:hover {
+            background: var(--green);
+            color: var(--purple);
+            transform: scale(1.08);
+            border-color: var(--yellow);
+        }
+        .copyright {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.98rem;
+            margin-top: 8px;
+            text-shadow: 0 1px 0 var(--purple);
+        }
+        /* Reviews Section */
+        .reviews {
+            padding: 60px 0 40px 0;
+            text-align: center;
+            background: var(--light);
+        }
+        .reviews h2 {
+            font-size: 2rem;
+            color: var(--purple);
+            margin-bottom: 16px;
+            text-shadow: 0 1px 0 var(--yellow);
+        }
+        .reviews-description {
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: var(--dark-blue);
+            font-size: 1.1rem;
+        }
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 32px;
+        }
+        .review-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 2px 12px rgba(110, 193, 228, 0.08);
+            text-align: left;
+            border: 1.5px solid var(--blue);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(126, 87, 194, 0.12);
+        }
+        .review-name {
+            font-weight: 600;
+            color: var(--purple);
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+        .review-stars {
+            color: #ffd700;  /* Golden color for filled stars */
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+        }
+        .review-stars .far {
+            color: #d1d1d1;  /* Grey color for empty stars */
+        }
+        .review-text {
+            color: var(--dark-blue);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        @media (max-width: 900px) {
+            .reviews-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 600px) {
+            .reviews-grid {
+                grid-template-columns: 1fr;
+            }
+            .reviews-description {
+                padding: 0 20px;
+            }
+        }
+        /* Review Form Styles */
+        .review-form-container {
+            max-width: 100%;
+            margin: 60px 0 0;
+            padding: 32px;
+            background: var(--white);
+            border-radius: 18px;
+            box-shadow: 0 2px 12px rgba(110, 193, 228, 0.08);
+            border: 1.5px solid var(--blue);
+        }
+        .review-form-title {
+            color: var(--purple);
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .review-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+        }
+        .review-form input,
+        .review-form textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1.5px solid var(--blue);
+            border-radius: 12px;
+            font-size: 1rem;
+            color: var(--dark-blue);
+            font-family: 'Montserrat', sans-serif;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .review-form input:focus,
+        .review-form textarea:focus {
+            outline: none;
+            border-color: var(--purple);
+            box-shadow: 0 2px 8px rgba(126, 87, 194, 0.1);
+        }
+        .review-form textarea {
+            min-height: 120px;
+            height: 120px;
+            resize: none;
+        }
+        .review-form button {
+            background: linear-gradient(90deg, var(--yellow), var(--orange));
+            color: var(--dark-blue);
+            border: none;
+            padding: 14px 28px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            align-self: center;
+            margin-top: 8px;
+        }
+        .review-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 179, 71, 0.2);
+        }
+        .review-form-message {
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 16px;
+            display: none;
+            text-align: center;
+        }
+        .review-form-message.success {
+            background: var(--green);
+            color: white;
+            display: block;
+        }
+        .review-form-message.error {
+            background: #ff6b6b;
+            color: white;
+            display: block;
+        }
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease-in-out;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            transform: translateY(-20px);
+            transition: transform 0.3s ease-in-out;
+            border: 2px solid var(--purple);
+        }
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            border: none;
+            background: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--purple);
+            padding: 5px;
+        }
+        .modal-title {
+            color: var(--purple);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .modal-content {
+            text-align: center;
+            color: var(--dark-blue);
+        }
+        .modal-highlight {
+            color: var(--orange);
+            font-weight: bold;
+            font-size: 1.2rem;
+            display: block;
+            margin: 15px 0;
+        }
+        .rating-container {
+            margin-bottom: 16px;
+        }
+        .rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+            gap: 8px;
+        }
+        .rating input {
+            display: none;
+        }
+        .rating label {
+            font-size: 24px;
+            color: #ddd;
+            cursor: pointer;
+        }
+        .rating label:hover,
+        .rating label:hover ~ label,
+        .rating input:checked ~ label {
+            color: var(--orange);
+        }
+    </style>
+</head>
+<body>
+    <!-- Modal for special offer -->
+    <div class="modal-overlay" id="specialOfferModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+            <h2 class="modal-title">Ofertă Specială!</h2>
+            <div class="modal-content">
+                <p>Primii 50 de clienti ai lunii beneficiaza de:</p>
+                <span class="modal-highlight">50% REDUCERE</span>
+                <p>la orice petrecere!</p>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <img src="images/logo.webp" alt="Sparkle Kids Logo" width="120" height="120" fetchpriority="high">
+            </div>
+            <h1>SparklesKids</h1>
+            <p>Micii visatori stralucesc aici!</p>
+            <a href="rezervare.html" class="cta-button">REZERVA ACUM</a>
+        </div>
+    </header>
+
+    <section class="slogan">
+        <div class="container">
+            <h2>Magia petrecerilor începe cu noi – Distracție și zâmbete pentru micuții tăi!</h2>
+        </div>
+    </section>
+
+    <!-- Gallery grid instead of carousel -->
+    <section class="gallery-section">
+        <div class="container gallery-grid">
+            <!-- 9 images, playful offset grid -->
+            <img src="images/gallery1.webp" alt="Copii la petrecere" class="gallery-img img-offset1" loading="lazy" width="600" height="400">
+            <img src="images/gallery2.webp" alt="Balon colorat" class="gallery-img img-offset2" loading="lazy" width="600" height="400">
+            <img src="images/gallery3.webp" alt="Copii fericiti" class="gallery-img img-offset3" loading="lazy" width="600" height="400">
+            <img src="images/gallery4.webp" alt="Tort aniversar" class="gallery-img img-offset2" loading="lazy" width="600" height="400">
+            <img src="images/gallery5.webp" alt="Fata cu baloane" class="gallery-img img-offset1" loading="lazy" width="600" height="400">
+            <img src="images/gallery6.webp" alt="Copii cu confetti" class="gallery-img img-offset3" loading="lazy" width="600" height="400">
+            <img src="images/gallery7.webp" alt="Petrecere copii" class="gallery-img img-offset2" loading="lazy" width="600" height="400">
+            <img src="images/gallery8.webp" alt="Copii cu palarii" class="gallery-img img-offset1" loading="lazy" width="600" height="400">
+            <img src="images/gallery9.webp" alt="Copii sarind" class="gallery-img img-offset3" loading="lazy" width="600" height="400">
+        </div>
+    </section>
+
+    <section class="services">
+        <div class="container">
+            <h2>Petrecerile noastre</h2>
+            
+            <div class="service-category">
+                <div class="service-header">
+                    <h3>Petreceri cu tematica <span class="price-tag">50 RON / persoană</span></h3>
+                    <span class="arrow">›</span>
+                </div>
+                <div class="service-content" id="tematica">
+                    <div class="service-content-left">
+                        <ul>
+                            <li>2h 30min de distractie neincetata pentru micutii tai</li>
+                            <li>Spectacole de dans impreuna cu copii</li>
+                            <li>Spectacole de magie</li>
+                            <li>Timp alocat jocului (pe echipe, cat si individual)</li>
+                            <li>Timp alocat invatarii distractive si practice</li>
+                            <li>Face painting</li>
+                            <li>Salon de tatuaje temporare</li>
+                            <li>Activitati recreative bazate pe tematica petreceri</li>
+                            <li>Candy bar</li>
+                            <li>Activitati in aer liber (cand vremea ne permite)</li>
+                    
+                            <li>O mica surpriza pentru micutul tau la finalul petrecerii</li>
+                            <li>Atelier de craft</li>
+                            <li>Poza instant (20 RON) </li>
+                        </ul>
+                    </div>
+                   
+                </div>
+            </div>
+
+            <div class="service-category">
+                <div class="service-header">
+                    <h3>Petreceri aniversare <span class="price-tag">750 lei</span></h3>
+                    <span class="arrow">›</span>
+                </div>
+                <div class="service-content" id="aniversare">
+                    <div class="service-content-left">
+                        <ul>
+                            <li>3h de distractie alaturi de echipa SparklesKids</li>
+                            <li>Activitati sportive sub forma de joc</li>
+                            <li>Invitatii digitale/printate</li>
+                            <li>Piñata</li>
+                            <li>Baloane (cu aer)</li>
+                            <li>Ateliere craft</li>
+                            <li>Supereroi (animatori): Spiderman/Cenusareasa/Catwomen/Batman</li>
+                            <li>Candy bar</li>
+                            <li>Arcada de baloane + o fotografie instant cu sarbatoritul/a si echipa SparklesKids</li>
+                            <li>Masinuta electica pentru copii</li>
+                            <li>Face painting</li>
+                            <li>Atelier de craft</li>
+                        </ul>
+                        <div class="service-content-extra">
+                            Pentru grupuri de <b>10-15 persoane</b>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="staff">
+        <div class="container">
+            <h2>Echipa noastră</h2>
+            <div class="staff-leaders">
+                <div class="staff-member">
+                    <div class="staff-photo" tabindex="0">
+                        <img src="images/eduard.webp" alt="Eduard Talanca-Albu" loading="lazy" width="240" height="300">
+                        </picture>
+                        <div class="staff-details">Fondator SparklesKids, lider ambițios și politicos, remarcabil prin responsabilitate și perseverență constantă.</div>
+                    </div>
+                    <div class="staff-name">Talanca-Albu Eduard</div>
+                </div>
+                <div class="staff-member">
+                    <div class="staff-photo" tabindex="0">
+                        <img src="images/rares.webp" alt="Rares Chirnoaga" loading="lazy" width="240" height="300">
+                        <div class="staff-details">Co-fondator al echipei, calm și calculat, oferă rezolvări sigure chiar în momente dificile.</div>
+                    </div>
+                    <div class="staff-name">Chirnoaga Rares-Petrisor</div>
+                </div>
+            </div>
+            <div class="staff-grid">
+                <div class="staff-member">
+                    <div class="staff-photo" tabindex="0">
+                        <img src="images/tudor.webp" alt="Tudor Rimbu" loading="lazy" width="240" height="300">
+                        <div class="staff-details">Responsabil și implicat, sprijin de nădejde, găsește timp mereu pentru idei revoluționare.</div>
+                    </div>
+                    <div class="staff-name">Rimbu Tudor</div>
+                </div>
+                <div class="staff-member">
+                    <div class="staff-photo" tabindex="0">
+                        <img src="images/monica.webp" alt="Monica Gutu" loading="lazy" width="240" height="300">
+                        <div class="staff-details">Responsabilă din copilărie, prietenă sinceră și dedicată, implicată total în fiecare sarcină.</div>
+                    </div>
+                    <div class="staff-name">Gutu Monica</div>
+                </div>
+                <div class="staff-member">
+                    <div class="staff-photo" tabindex="0">
+                        <img src="images/teodora.webp" alt="Teodora Simiuc" loading="lazy" width="240" height="300">
+                        <div class="staff-details">Răbdătoare, caldă și veselă, aduce copiilor prietenie autentică și bucurie infinită.</div>
+                    </div>
+                    <div class="staff-name">Simiuc Teodora</div>
+                </div>
+                <div class="staff-member">
+                    <div class="staff-photo" tabindex="0">
+                        <img src="images/alexia.webp" alt="Alexia Cojocaru" loading="lazy" width="240" height="300">
+                        <div class="staff-details">Aduce zâmbete rapide, transformă sarcinile neplăcute în experiențe distractive și pline de energie.</div>
+                    </div>
+                    <div class="staff-name">Cojocaru Alexia</div>
+                </div>
+                <div class="staff-member">
+                    <div class="staff-photo" tabindex="0">
+                        <picture>
+                            <source srcset="images/tamara.webp" type="image/webp">
+                            <source srcset="images/tamara.jpg" type="image/jpeg">
+                            <img src="images/tamara.jpg" alt="Tamara Luncanu" loading="lazy" width="240" height="300">
+                        </picture>
+                        <div class="staff-details">Suflet cald și entuziast, preferata copiilor prin grijă sinceră și distracție echilibrată.</div>
+                    </div>
+                    <div class="staff-name">Luncanu Tamara</div>
+                </div>
+                <div class="staff-member">
+                    <div class="staff-photo" tabindex="0">
+                        <picture>
+                            <source srcset="images/otilia.webp" type="image/webp">
+                            <source srcset="images/otilia.jpg" type="image/jpeg">
+                            <img src="images/otilia.jpg" alt="Otilia Puiu" loading="lazy" width="240" height="300">
+                        </picture>
+                        <div class="staff-details">Creativă și jucăușă, inventează povești magice, transformând fiecare petrecere într-o aventură.</div>
+                    </div>
+                    <div class="staff-name">Puiu Otilia</div>
+                </div>
+                <div class="staff-member">
+                    <div class="staff-photo" tabindex="0">
+                        <picture>
+                            <source srcset="images/cosmina.webp" type="image/webp">
+                            <source srcset="images/cosmina.jpg" type="image/jpeg">
+                            <img src="images/cosmina.jpg" alt="Cosmina Aron" loading="lazy" width="240" height="300">
+                        </picture>
+                        <div class="staff-details">Discretă, calmă și implicată, contribuie mereu eficient și stabil în toate proiectele.</div>
+                    </div>
+                    <div class="staff-name">Aron Cosmina</div>
+                </div>
+                <div class="staff-member">
+                    <div class="staff-photo" tabindex="0">
+                        <picture>
+                            <source srcset="images/cristiana.webp" type="image/webp">
+                            <source srcset="images/cristiana.jpg" type="image/jpeg">
+                            <img src="images/cristiana.jpg" alt="Cristiana Lazar" loading="lazy" width="240" height="300">
+                        </picture>
+                        <div class="staff-details">Veselă și energică, mereu gata să cânte, danseze și să încânte copiii.</div>
+                    </div>
+                    <div class="staff-name">Lazar Cristiana 
+</div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!-- 9 images, playful offset grid -->
+    <section class="reviews">
+        <div class="container">
+            <!-- REVIEWWWWWWWWW               <h2>Recenzii</h2> 
+            <p class="reviews-description">
+                Descoperă experiențele minunate ale familiilor care au ales serviciile noastre pentru petrecerile copiilor lor.
+            </p>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-name">Alexandru Dobre</div>
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-text">
+                        "Am venit la o petrecere cu tematica,copilul meu s-a simtit extraordinar,de atunci imi spune in fiecare weekend ca vrea sa revenim la SparklesKids"
+                    </p>
+                </div>
+                <div class="review-card">
+                    <div class="review-name">Nastase Erika</div>
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <p class="review-text">
+                        "SparklesKids are o echipa bine pregatita si distractia nu inceteaza sa apara,atat Eduard,cat si Rares sunt atenti la orice nevoie a copiilor,iar activitatile dedicate invatarii m-au facut sa revin
+"
+                    </p>
+                </div>
+                <div class="review-card">
+                    <div class="review-name">Mihailescu Oana</div>
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <p class="review-text">
+                        "Singurul lucru care ii dezavantajeaza este ca nu au o locatie de sine statatorea,am fost sceptica in ceea ce priveste echipa SparkelsKids pentru ziua fiului meu,dar cand am vazut determinarea si organizarea de care dau dovata acesti pusti am ramas complet surprinsa,clar voi reveni si anul viitor pentru ziua baiatului meu,poate intr-o locatie a lor"
+                    </p>
+                </div>
+                <div class="review-card">
+                    <div class="review-name">Cretu Claudiu</div>
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="review-text">
+                        "Eduard si Rares sunt in ton cu cei mici si nu evita sa adauge prospetime in fiecare petrecere,dar nu inainte de a trece de filtrul rezonabilitatii pentru a fi adaptate celor mici"
+                    </p>
+                </div>
+                <div class="review-card">
+                    <div class="review-name">Parasca Andreea</div>
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <p class="review-text">
+                        "Am ales sa vin la o petrecere cu tematica,totul a decurs bine din punct de vedere al organizarii,dar lipsa ofertelor,reducerilor aduce un minus din punctul meu de vedere la o firma ce este la inceput"
+                    </p>
+                </div>
+                <div class="review-card">
+                    <div class="review-name">Alexa Claudia</div>
+                    <div class="review-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <p class="review-text">
+                        "Organizatorii gandesc doar in favoare copiilor un lucru de apreciat pe care nu il vezi la mai toate firmele de acest gen,proiectele si anvergura acestei firme au un mare potential si sunt de urmarit pe viitor"
+                    </p>
+                </div>
+            </div>
+            REEEEEVIEWWWWW                  --->
+            <div class="review-form-container">
+                <p style="text-align: center; color: var(--dark-blue); margin-bottom: 20px; font-style: italic;">
+                    Nu uita să ne lași părerea ta sinceră, pentru noi contează, suntem într-o ascensiune continuă!
+                </p>
+                <h3 class="review-form-title">Lasă o recenzie</h3>
+                <form class="review-form" id="reviewForm">
+                    <div class="rating-container">
+                        <div class="rating">
+                            <input type="radio" id="star5" name="rating" value="5" required>
+                            <label for="star5"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="star4" name="rating" value="4">
+                            <label for="star4"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="star3" name="rating" value="3">
+                            <label for="star3"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="star2" name="rating" value="2">
+                            <label for="star2"><i class="fas fa-star"></i></label>
+                            <input type="radio" id="star1" name="rating" value="1">
+                            <label for="star1"><i class="fas fa-star"></i></label>
+                        </div>
+                    </div>
+                    <input type="text" name="name" placeholder="Numele tău" required>
+                    <textarea name="message" placeholder="Mesajul tău" required></textarea>
+                    <button type="submit">Trimite recenzia</button>
+                </form>
+                <div class="review-form-message" id="formMessage"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container footer-content">
+            <h3>Contactează-ne</h3>
+            <p>Email: contact@sparkles-kids.com</p>
+            <p>Telefon: +40 758 679 909</p>
+            <div class="social-links">
+                <a href="https://www.facebook.com/share/12KfemB8Wpa/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/sparkles.kids?igsh=MW1wOG9qeW54czQ5aw==" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@sparkleskids3?_t=ZN-8yxkfVXx4pK&_r=1" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            </div>
+            <p class="copyright">© 2025 Sparkle Kids. Toate drepturile rezervate.</p>
+        </div>
+    </footer>
+
+        <!-- Optimized JavaScript -->
+    <script>
+        // Register Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js')
+                .then(registration => console.log('ServiceWorker registration successful'))
+                .catch(err => console.log('ServiceWorker registration failed: ', err));
+        }
+
+        // Use passive event listeners for better scroll performance
+        document.addEventListener('DOMContentLoaded', function() {
+            // Intersection Observer for lazy loading
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            if (img.dataset.src) {
+                                img.src = img.dataset.src;
+                                img.removeAttribute('data-src');
+                            }
+                            observer.unobserve(img);
+                        }
+                    });
+                }, {
+                    rootMargin: '50px 0px',
+                    threshold: 0.01
+                });
+
+                document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+                    imageObserver.observe(img);
+                });
+            }
+
+            // Optimize modal
+            const modal = document.getElementById('specialOfferModal');
+            if (modal) {
+                requestAnimationFrame(() => {
+                    setTimeout(() => modal.classList.add('active'), 1000);
+                });
+            }
+
+            // Optimize service toggles
+            document.querySelectorAll('.service-header').forEach(header => {
+                header.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    const arrow = this.querySelector('.arrow');
+                    const isOpen = content.classList.contains('show');
+                    
+                    requestAnimationFrame(() => {
+                        arrow.classList.toggle('down', !isOpen);
+                        if (isOpen) {
+                            content.style.maxHeight = '0px';
+                            content.style.paddingTop = '0px';
+                            content.style.paddingBottom = '0px';
+                            setTimeout(() => content.classList.remove('show'), 700);
+                        } else {
+                            content.classList.add('show');
+                            content.style.maxHeight = content.scrollHeight + 'px';
+                            content.style.paddingTop = '25px';
+                            content.style.paddingBottom = '40px';
+                        }
+                    });
+                }, { passive: true });
+            });
+
+            // Open first service by default
+            document.querySelector('.service-header').click();
+        }, { passive: true });
+
+        function closeModal() {
+            const modal = document.getElementById('specialOfferModal');
+            modal.classList.remove('active');
+        }
+    </script>
+</body>
+</html>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        function animateAccordion(content, show) {
+            if (show) {
+                content.style.display = 'block';
+                content.style.overflow = 'hidden';
+                content.style.transition = 'none';
+                content.style.maxHeight = '0px';
+                content.style.paddingTop = '0px';
+                content.style.paddingBottom = '0px';
+                void content.offsetWidth;
+                content.style.transition = 'max-height 0.7s cubic-bezier(0.4,0,0.2,1), padding 0.7s cubic-bezier(0.4,0,0.2,1)';
+                content.style.maxHeight = content.scrollHeight + 'px';
+                content.style.paddingTop = '25px';
+                content.style.paddingBottom = '40px';
+                setTimeout(() => {
+                    content.style.maxHeight = '';
+                    content.style.overflow = 'visible';
+                    content.classList.add('show');
+                }, 700);
+            } else {
+                content.style.overflow = 'hidden';
+                content.style.transition = 'none';
+                content.style.maxHeight = content.scrollHeight + 'px';
+                void content.offsetWidth;
+                content.style.transition = 'max-height 0.7s cubic-bezier(0.4,0,0.2,1), padding 0.7s cubic-bezier(0.4,0,0.2,1)';
+                content.style.maxHeight = '0px';
+                content.style.paddingTop = '0px';
+                content.style.paddingBottom = '0px';
+                setTimeout(() => {
+                    content.classList.remove('show');
+                    content.style.display = '';
+                    content.style.maxHeight = '';
+                    content.style.transition = '';
+                    content.style.overflow = '';
+                }, 700);
+            }
+        }
+
+        function toggleService(id) {
+            const content = document.getElementById(id);
+            const arrow = content.previousElementSibling.querySelector('.arrow');
+            const isOpen = content.classList.contains('show');
+            animateAccordion(content, !isOpen);
+            arrow.classList.toggle('down', !isOpen);
+        }
+
+        function closeModal() {
+            document.getElementById('specialOfferModal').classList.remove('active');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                document.getElementById('specialOfferModal').classList.add('active');
+            }, 1000);
+
+            const modalOverlay = document.getElementById('specialOfferModal');
+            modalOverlay.addEventListener('click', function(e) {
+                if (e.target === this) closeModal();
+            });
+
+            document.querySelectorAll('.service-header').forEach(header => {
+                header.addEventListener('click', function() {
+                    const content = this.nextElementSibling;
+                    toggleService(content.id);
+                });
+            });
+
+            toggleService('tematica');
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href'))
+                        .scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+
+            document.getElementById('reviewForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+                const messageDiv = document.getElementById('formMessage');
+                
+                fetch('mail_handler.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    messageDiv.textContent = data.message;
+                    messageDiv.className = 'review-form-message ' + data.status;
+                    if(data.status === 'success') {
+                        this.reset();
+                    }
+                })
+                .catch(error => {
+                    messageDiv.textContent = 'A apărut o eroare. Vă rugăm încercați din nou.';
+                    messageDiv.className = 'review-form-message error';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
