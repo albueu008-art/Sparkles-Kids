@@ -29,18 +29,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email_content .= "Telefon: $phone\n";
     $email_content .= "Mesaj:\n$message\n";
     
-    $headers = "From: noreply@sparkles-kids.com\r\n";
-    $headers .= "Reply-To: $parent_name <noreply@sparkles-kids.com>\r\n";
-    $headers .= "X-Mailer: PHP/" . phpversion();
-    
-    $success = TEST_MODE ? 
-        logEmail($to, $subject, $email_content, $headers) : 
-        mail($to, $subject, $email_content, $headers);
+    $success = sendEmail($to, $subject, $email_content, "SparklesKids");
     
     if($success) {
         echo json_encode(["status" => "success", "message" => "Rezervarea a fost trimisă cu succes!"]);
     } else {
-        echo json_encode(["status" => "error", "message" => "A apărut o eroare. Vă rugăm încercați din nou."]);
+        $error = error_get_last();
+        $errorMsg = $error ? $error['message'] : 'Unknown error';
+        error_log("Reservation Handler Error: " . $errorMsg);
+        echo json_encode(["status" => "error", "message" => "A apărut o eroare. Vă rugăm încercați din nou. (Error: " . $errorMsg . ")"]);
     }
     exit;
 }
