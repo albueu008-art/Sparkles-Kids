@@ -689,66 +689,73 @@
         }
         /* Modal Styles */
         .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease-in-out;
-        }
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        .modal {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            max-width: 500px;
-            width: 90%;
-            position: relative;
-            transform: translateY(-20px);
-            transition: transform 0.3s ease-in-out;
-            border: 2px solid var(--purple);
-        }
-        .modal-overlay.active .modal {
-            transform: translateY(0);
-        }
-        .modal-close {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            border: none;
-            background: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: var(--purple);
-            padding: 5px;
-        }
-        .modal-title {
-            color: var(--purple);
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        .modal-content {
-            text-align: center;
-            color: var(--dark-blue);
-        }
-        .modal-highlight {
-            color: var(--orange);
-            font-weight: bold;
-            font-size: 1.2rem;
-            display: block;
-            margin: 15px 0;
-        }
+    opacity: 0;
+    visibility: hidden; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 1000;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible; /* Show when active */
+}
+
+.modal {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+    transform: translateY(-20px);
+    transition: transform 0.3s ease-in-out;
+    border: 2px solid var(--purple);
+}
+
+.modal-overlay.active .modal {
+    transform: translateY(0);
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    border: none;
+    background: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--purple);
+    padding: 5px;
+}
+
+.modal-title {
+    color: var(--purple);
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.modal-content {
+    text-align: center;
+    color: var(--dark-blue);
+}
+
+.modal-highlight {
+    color: var(--orange);
+    font-weight: bold;
+    font-size: 1.2rem;
+    display: block;
+    margin: 15px 0;
+}
         .rating-container {
             margin-bottom: 16px;
         }
@@ -865,14 +872,14 @@ document.addEventListener('DOMContentLoaded', function() {
                             <li>Timp alocat jocului (pe echipe, cat si individual)</li>
                             <li>Timp alocat invatarii distractive si practice</li>
                             <li>Face painting</li>
-                            <li>Salon de tatuaje temporare</li>
                             <li>Activitati recreative bazate pe tematica petreceri</li>
                             <li>Candy bar</li>
                             <li>Activitati in aer liber (cand vremea ne permite)</li>
-                    
                             <li>O mica surpriza pentru micutul tau la finalul petrecerii</li>
                             <li>Atelier de craft</li>
                             <li>Poza instant (20 RON) </li>
+                            <br>
+                            <br>
                         </ul>
                     </div>
                    
@@ -892,17 +899,17 @@ document.addEventListener('DOMContentLoaded', function() {
                             <li>Invitatii digitale/printate</li>
                             <li>Piñata</li>
                             <li>Baloane (cu aer)</li>
-                            <li>Ateliere craft</li>
-                            <li>Supereroi (animatori): Spiderman/Cenusareasa/Catwomen/Batman</li>
+                            <li>Ateliere craft</li> 
+                            <li>Supereroi (animatori): Spiderman / Cenusareasa / Catwomen / Batman</li>
                             <li>Candy bar</li>
-                            <li>Arcada de baloane + o fotografie instant cu sarbatoritul/a si echipa SparklesKids</li>
+                            <li>Arcada de baloane + o fotografie instant cu sarbatoritul / a si echipa SparklesKids</li>
                             <li>Masinuta electica pentru copii</li>
                             <li>Face painting</li>
                             <li>Atelier de craft</li>
+                            <br>
+                            <br>
                         </ul>
-                        <div class="service-content-extra">
-                            Pentru grupuri de <b>10-15 persoane</b>
-                        </div>
+                        
                     </div>
                     
                 </div>
@@ -1178,7 +1185,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="social-links">
             <a href="https://www.facebook.com/share/12KfemB8Wpa/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
             <a href="https://www.instagram.com/sparkles.kids?igsh=MW1wOG9qeW54czQ5aw==" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.tiktok.com/@sparkleskids3?_t=ZN-8yxkfVXx4pK&_r=1" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://www.tiktok.com/@sparkleskidsiasi?_t=ZN-8yzSqES5kAQ&_r=1" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
         </div>
         <p class="copyright">© 2025 Sparkle Kids. Toate drepturile rezervate.</p>
     </div>
@@ -1216,40 +1223,65 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Special Offer Modal
-        const modal = document.getElementById('specialOfferModal');
-        if (modal) {
-            setTimeout(() => modal.classList.add('active'), 1000);
-            modal.addEventListener('click', e => {
-                if (e.target === modal) modal.classList.remove('active');
-            });
-        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('specialOfferModal');
+    const closeBtn = modal.querySelector('.modal-close');
 
-        // Accordion toggles
-        document.querySelectorAll('.service-header').forEach(header => {
-            header.addEventListener('click', function() {
-                const content = this.nextElementSibling;
-                const arrow = this.querySelector('.arrow');
-                const isOpen = content.classList.contains('show');
+    // Only show modal if not already shown in this session
+    if (modal && !sessionStorage.getItem('specialOfferShown')) {
 
-                if (isOpen) {
-                    content.style.maxHeight = '0px';
-                    content.style.paddingTop = '0px';
-                    content.style.paddingBottom = '0px';
-                    content.classList.remove('show');
-                    arrow.classList.remove('down');
-                } else {
-                    content.classList.add('show');
-                    content.style.maxHeight = content.scrollHeight + 'px';
-                    content.style.paddingTop = '25px';
-                    content.style.paddingBottom = '40px';
-                    arrow.classList.add('down');
-                }
-            }, { passive: true });
+        // Mark as shown in this session
+        sessionStorage.setItem('specialOfferShown', 'true');
+
+        // Show modal after 1 second
+        setTimeout(() => modal.classList.add('active'), 1000);
+
+        // Close modal on overlay click
+        modal.addEventListener('click', e => {
+            if (e.target === modal) modal.classList.remove('active');
         });
 
-        // Open first service by default
-        const firstService = document.querySelector('.service-header');
-        if(firstService) firstService.click();
+        // Close modal on X button click
+        closeBtn.addEventListener('click', () => modal.classList.remove('active'));
+
+        // Close modal on ESC key
+        document.addEventListener('keydown', e => {
+            if (e.key === "Escape") modal.classList.remove('active');
+        });
+    }
+});
+
+        
+        
+        // Accordion toggles
+        document.querySelectorAll('.service-header').forEach(header => {
+  header.addEventListener('click', function () {
+    const content = this.nextElementSibling;
+    const arrow = this.querySelector('.arrow');
+    const isOpen = content.classList.contains('show');
+
+    // Close all service contents first
+    document.querySelectorAll('.service-content').forEach(c => {
+      c.style.maxHeight = '0px';
+      c.style.paddingTop = '0px';
+      c.style.paddingBottom = '0px';
+      c.classList.remove('show');
+    });
+    document.querySelectorAll('.service-header .arrow').forEach(a => {
+      a.classList.remove('down');
+    });
+
+    // If the clicked one was not open, open it
+    if (!isOpen) {
+      content.classList.add('show');
+      content.style.maxHeight = content.scrollHeight + 'px';
+      content.style.paddingTop = '25px';
+      content.style.paddingBottom = '40px';
+      arrow.classList.add('down');
+    }
+  }, { passive: true });
+});
 
         // Smooth scroll for anchors
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
