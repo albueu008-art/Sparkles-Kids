@@ -1272,7 +1272,7 @@
                 const formData = new FormData(this);
                 const messageDiv = document.getElementById('formMessage');
                 
-                fetch('mail_handler.php', {
+                fetch('./mail_handler.php', {
                     method: 'POST',
                     body: formData
                 })
