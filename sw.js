@@ -1,7 +1,8 @@
-const CACHE_NAME = 'sparkle-kids-v1';
+const CACHE_NAME = 'sparkle-kids-v2'; // updated version
 const ASSETS = [
   '/',
   '/index.html',
+  '/rezervare.html',
   '/images/logo.webp',
   '/images/eduard.webp',
   '/images/rares.webp',
@@ -42,8 +43,13 @@ self.addEventListener('activate', event => {
   );
 });
 
-// Serve from cache, fallback to network
+// Serve GET requests from cache, fallback to network; let POST requests pass through
 self.addEventListener('fetch', event => {
+  if (event.request.method !== 'GET') {
+    // Don't intercept non-GET requests
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request)
       .then(response => response || fetch(event.request))
