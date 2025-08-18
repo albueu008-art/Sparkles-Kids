@@ -219,7 +219,7 @@
             const formData = new FormData(this);
             const messageDiv = document.getElementById('formMessage');
             
-            fetch('reservation_handler.php', {
+            fetch('./reservation_handler.php', {
                 method: 'POST',
                 body: formData
             })
