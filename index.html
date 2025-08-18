@@ -1108,7 +1108,8 @@ reviewForm.addEventListener('submit', function(e){
         method: 'POST',
         body: formData,
         headers: { 'Accept': 'application/json' }
-    }).then(response => {
+    })
+    .then(response => {
         if(response.ok){
             reviewMessageDiv.textContent = "Recenzia a fost trimisă cu succes!";
             reviewMessageDiv.className = 'form-message success';
@@ -1119,7 +1120,8 @@ reviewForm.addEventListener('submit', function(e){
                 reviewMessageDiv.className = 'form-message error';
             });
         }
-    }).catch(error => {
+    })
+    .catch(error => {
         reviewMessageDiv.textContent = "A apărut o eroare. Vă rugăm încercați din nou.";
         reviewMessageDiv.className = 'form-message error';
     });
