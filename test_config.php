@@ -1,6 +1,6 @@
 <?php
 // Configuration
-define('TEST_MODE', true);
+define('TEST_MODE', false);
 define('SITE_EMAIL', 'albueu008@gmail.com');
 define('TEST_EMAIL', 'albueu008@gmail.com'); // Same as SITE_EMAIL for testing
 define('SMTP_HOST', 'smtp-relay.brevo.com');
@@ -122,3 +122,4 @@ function logEmail($to, $subject, $message, $from_name) {
     }
 }
 ?>
+
