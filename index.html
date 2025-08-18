@@ -1129,7 +1129,7 @@ reviewForm.addEventListener('submit', function(e){
         </div>
     </section>
 
-    <footer id="contact">
+        <footer id="contact">
         <div class="container footer-content">
             <h3>Contactează-ne</h3>
             <p>Email: contact@sparkles-kids.com</p>
@@ -1143,18 +1143,18 @@ reviewForm.addEventListener('submit', function(e){
         </div>
     </footer>
 
-        <!-- Optimized JavaScript -->
+    <!-- Optimized JavaScript -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script>
-        // Register Service Worker
+        // Service Worker
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/sw.js')
                 .then(registration => console.log('ServiceWorker registration successful'))
                 .catch(err => console.log('ServiceWorker registration failed: ', err));
         }
 
-        // Use passive event listeners for better scroll performance
         document.addEventListener('DOMContentLoaded', function() {
-            // Intersection Observer for lazy loading
+            // Intersection Observer for lazy loading images
             if ('IntersectionObserver' in window) {
                 const imageObserver = new IntersectionObserver((entries, observer) => {
                     entries.forEach(entry => {
@@ -1167,129 +1167,50 @@ reviewForm.addEventListener('submit', function(e){
                             observer.unobserve(img);
                         }
                     });
-                }, {
-                    rootMargin: '50px 0px',
-                    threshold: 0.01
-                });
+                }, { rootMargin: '50px 0px', threshold: 0.01 });
 
                 document.querySelectorAll('img[loading="lazy"]').forEach(img => {
                     imageObserver.observe(img);
                 });
             }
 
-            // Optimize modal
+            // Special Offer Modal
             const modal = document.getElementById('specialOfferModal');
             if (modal) {
-                requestAnimationFrame(() => {
-                    setTimeout(() => modal.classList.add('active'), 1000);
+                setTimeout(() => modal.classList.add('active'), 1000);
+                modal.addEventListener('click', e => {
+                    if (e.target === modal) modal.classList.remove('active');
                 });
             }
 
-            // Optimize service toggles
+            // Accordion toggles
             document.querySelectorAll('.service-header').forEach(header => {
                 header.addEventListener('click', function() {
                     const content = this.nextElementSibling;
                     const arrow = this.querySelector('.arrow');
                     const isOpen = content.classList.contains('show');
-                    
-                    requestAnimationFrame(() => {
-                        arrow.classList.toggle('down', !isOpen);
-                        if (isOpen) {
-                            content.style.maxHeight = '0px';
-                            content.style.paddingTop = '0px';
-                            content.style.paddingBottom = '0px';
-                            setTimeout(() => content.classList.remove('show'), 700);
-                        } else {
-                            content.classList.add('show');
-                            content.style.maxHeight = content.scrollHeight + 'px';
-                            content.style.paddingTop = '25px';
-                            content.style.paddingBottom = '40px';
-                        }
-                    });
+
+                    if (isOpen) {
+                        content.style.maxHeight = '0px';
+                        content.style.paddingTop = '0px';
+                        content.style.paddingBottom = '0px';
+                        content.classList.remove('show');
+                        arrow.classList.remove('down');
+                    } else {
+                        content.classList.add('show');
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                        content.style.paddingTop = '25px';
+                        content.style.paddingBottom = '40px';
+                        arrow.classList.add('down');
+                    }
                 }, { passive: true });
             });
 
             // Open first service by default
-            document.querySelector('.service-header').click();
-        }, { passive: true });
+            const firstService = document.querySelector('.service-header');
+            if(firstService) firstService.click();
 
-        function closeModal() {
-            const modal = document.getElementById('specialOfferModal');
-            modal.classList.remove('active');
-        }
-    </script>
-</body>
-</html>
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    <script>
-        function animateAccordion(content, show) {
-            if (show) {
-                content.style.display = 'block';
-                content.style.overflow = 'hidden';
-                content.style.transition = 'none';
-                content.style.maxHeight = '0px';
-                content.style.paddingTop = '0px';
-                content.style.paddingBottom = '0px';
-                void content.offsetWidth;
-                content.style.transition = 'max-height 0.7s cubic-bezier(0.4,0,0.2,1), padding 0.7s cubic-bezier(0.4,0,0.2,1)';
-                content.style.maxHeight = content.scrollHeight + 'px';
-                content.style.paddingTop = '25px';
-                content.style.paddingBottom = '40px';
-                setTimeout(() => {
-                    content.style.maxHeight = '';
-                    content.style.overflow = 'visible';
-                    content.classList.add('show');
-                }, 700);
-            } else {
-                content.style.overflow = 'hidden';
-                content.style.transition = 'none';
-                content.style.maxHeight = content.scrollHeight + 'px';
-                void content.offsetWidth;
-                content.style.transition = 'max-height 0.7s cubic-bezier(0.4,0,0.2,1), padding 0.7s cubic-bezier(0.4,0,0.2,1)';
-                content.style.maxHeight = '0px';
-                content.style.paddingTop = '0px';
-                content.style.paddingBottom = '0px';
-                setTimeout(() => {
-                    content.classList.remove('show');
-                    content.style.display = '';
-                    content.style.maxHeight = '';
-                    content.style.transition = '';
-                    content.style.overflow = '';
-                }, 700);
-            }
-        }
-
-        function toggleService(id) {
-            const content = document.getElementById(id);
-            const arrow = content.previousElementSibling.querySelector('.arrow');
-            const isOpen = content.classList.contains('show');
-            animateAccordion(content, !isOpen);
-            arrow.classList.toggle('down', !isOpen);
-        }
-
-        function closeModal() {
-            document.getElementById('specialOfferModal').classList.remove('active');
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(() => {
-                document.getElementById('specialOfferModal').classList.add('active');
-            }, 1000);
-
-            const modalOverlay = document.getElementById('specialOfferModal');
-            modalOverlay.addEventListener('click', function(e) {
-                if (e.target === this) closeModal();
-            });
-
-            document.querySelectorAll('.service-header').forEach(header => {
-                header.addEventListener('click', function() {
-                    const content = this.nextElementSibling;
-                    toggleService(content.id);
-                });
-            });
-
-            toggleService('tematica');
-
+            // Smooth scroll for anchors
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     e.preventDefault();
@@ -1298,26 +1219,32 @@ reviewForm.addEventListener('submit', function(e){
                 });
             });
 
-            document.getElementById('reviewForm').addEventListener('submit', function(e) {
+            // Review Form Submission (Formspree)
+            const reviewForm = document.getElementById('reviewForm');
+            const reviewMessageDiv = document.getElementById('reviewMessage');
+
+            reviewForm.addEventListener('submit', function(e){
                 e.preventDefault();
-                const formData = new FormData(this);
-                const messageDiv = document.getElementById('formMessage');
-                
-                fetch('./mail_handler.php', {
+                const formData = new FormData(reviewForm);
+
+                fetch(reviewForm.action, {
                     method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    messageDiv.textContent = data.message;
-                    messageDiv.className = 'review-form-message ' + data.status;
-                    if(data.status === 'success') {
-                        this.reset();
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                }).then(response => {
+                    if(response.ok){
+                        reviewMessageDiv.textContent = "Recenzia a fost trimisă cu succes!";
+                        reviewMessageDiv.className = 'form-message success';
+                        reviewForm.reset();
+                    } else {
+                        response.json().then(data => {
+                            reviewMessageDiv.textContent = data?.errors?.[0]?.message || "A apărut o eroare. Vă rugăm încercați din nou.";
+                            reviewMessageDiv.className = 'form-message error';
+                        });
                     }
-                })
-                .catch(error => {
-                    messageDiv.textContent = 'A apărut o eroare. Vă rugăm încercați din nou.';
-                    messageDiv.className = 'review-form-message error';
+                }).catch(error => {
+                    reviewMessageDiv.textContent = "A apărut o eroare. Vă rugăm încercați din nou.";
+                    reviewMessageDiv.className = 'form-message error';
                 });
             });
         });
