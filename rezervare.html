@@ -182,7 +182,7 @@ button:hover {
 <div class="container">
 <h1>Rezervă o petrecere</h1>
 
-<form id="reservationForm" action="https://formspree.io/f/mrblvvbd" method="POST">
+<form id="reservationForm" action="https://formspree.io/f/mrblvvar" method="POST">
     <label for="nume">Nume părinte</label>
     <input type="text" id="nume" name="parent_name" required>
 
@@ -228,7 +228,7 @@ form.addEventListener('submit', function(e){
         headers: { 'Accept': 'application/json' }
     }).then(response => {
         if(response.ok){
-            messageDiv.textContent = "Recenzia a fost trimisă cu succes!";
+            messageDiv.textContent = "Rezervarea a fost trimisă cu succes!";
             messageDiv.className = 'form-message success';
             form.reset();
         } else {
