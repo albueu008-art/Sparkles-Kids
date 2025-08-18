@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="SparkleKids - Servicii profesionale pentru petreceri copii. Distractie si zambete pentru micutii tai!">
     <meta name="theme-color" content="#7e57c2">
-    <title>Sparkle Kids - Profesional Party Services</title>
+    <title>Sparkle Kids</title>
     
     <!-- Critical preloads -->
     <link rel="preload" href="images/logo.webp" as="image" type="image/webp" fetchpriority="high">
@@ -776,16 +776,43 @@
 <body>
     <!-- Modal for special offer -->
     <div class="modal-overlay" id="specialOfferModal">
-        <div class="modal">
-            <button class="modal-close" onclick="closeModal()">&times;</button>
-            <h2 class="modal-title">Ofertă Specială!</h2>
-            <div class="modal-content">
-                <p>Primii 50 de clienti ai lunii beneficiaza de:</p>
-                <span class="modal-highlight">50% REDUCERE</span>
-                <p>la orice petrecere!</p>
-            </div>
+    <div class="modal">
+        <button class="modal-close">&times;</button>
+        <h2 class="modal-title">Ofertă Specială!</h2>
+        <div class="modal-content">
+            <p>Primii 50 de clienti ai lunii beneficiaza de:</p>
+            <span class="modal-highlight">50% REDUCERE</span>
+            <p>la orice petrecere!</p>
         </div>
     </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('specialOfferModal');
+    const closeBtn = modal.querySelector('.modal-close');
+
+    if (modal) {
+        // Show after 1 second
+        setTimeout(() => modal.classList.add('active'), 1000);
+
+        // Close when clicking overlay (outside modal)
+        modal.addEventListener('click', e => {
+            if (e.target === modal) modal.classList.remove('active');
+        });
+
+        // Close when clicking the X button
+        closeBtn.addEventListener('click', () => {
+            modal.classList.remove('active');
+        });
+
+        // Close when pressing ESC
+        document.addEventListener('keydown', e => {
+            if (e.key === "Escape") modal.classList.remove('active');
+        });
+    }
+});
+</script>
 
     <header>
         <div class="container header-content">
@@ -1069,7 +1096,7 @@
                 </div>
             </div>
             REEEEEVIEWWWWW                  --->
-            <div class="review-form-container">
+          <div class="review-form-container">
     <p style="text-align: center; color: var(--dark-blue); margin-bottom: 20px; font-style: italic;">
         Nu uita să ne lași părerea ta sinceră, pentru noi contează, suntem într-o ascensiune continuă!
     </p>
@@ -1096,160 +1123,172 @@
     <div class="form-message" id="reviewMessage"></div>
 </div>
 
+<style>
+/* ONLY review form styling */
+.review-form-container input[type="text"],
+.review-form-container textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.review-form-container input[type="text"]:focus,
+.review-form-container textarea:focus {
+    border-color: var(--dark-blue);
+    box-shadow: 0 0 6px rgba(0, 51, 102, 0.3);
+}
+
+.review-form-container textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.review-form-container button[type="submit"] {
+    background-color: var(--dark-blue);
+    color: #fff;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    width: 100%;
+}
+
+.review-form-container button[type="submit"]:hover {
+    background-color: #1e40af; /* darker blue on hover */
+}
+</style>
+
+</div>
+</section>
+
+<footer id="contact">
+    <div class="container footer-content">
+        <h3>Contactează-ne</h3>
+        <p>Email: contact@sparkles-kids.com</p>
+        <p>Telefon: +40 758 679 909</p>
+        <div class="social-links">
+            <a href="https://www.facebook.com/share/12KfemB8Wpa/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/sparkles.kids?igsh=MW1wOG9qeW54czQ5aw==" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@sparkleskids3?_t=ZN-8yxkfVXx4pK&_r=1" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+        </div>
+        <p class="copyright">© 2025 Sparkle Kids. Toate drepturile rezervate.</p>
+    </div>
+</footer>
+
+<!-- Optimized JavaScript -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 <script>
-const reviewForm = document.getElementById('reviewForm');
-const reviewMessageDiv = document.getElementById('reviewMessage');
+    // Service Worker
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js')
+            .then(registration => console.log('ServiceWorker registration successful'))
+            .catch(err => console.log('ServiceWorker registration failed: ', err));
+    }
 
-reviewForm.addEventListener('submit', function(e){
-    e.preventDefault();
-    const formData = new FormData(reviewForm);
-
-    fetch(reviewForm.action, {
-        method: 'POST',
-        body: formData,
-        headers: { 'Accept': 'application/json' }
-    })
-    .then(response => {
-        if(response.ok){
-            reviewMessageDiv.textContent = "Recenzia a fost trimisă cu succes!";
-            reviewMessageDiv.className = 'form-message success';
-            reviewForm.reset();
-        } else {
-            response.json().then(data => {
-                reviewMessageDiv.textContent = data?.errors?.[0]?.message || "A apărut o eroare. Vă rugăm încercați din nou.";
-                reviewMessageDiv.className = 'form-message error';
-            });
-        }
-    })
-    .catch(error => {
-        reviewMessageDiv.textContent = "A apărut o eroare. Vă rugăm încercați din nou.";
-        reviewMessageDiv.className = 'form-message error';
-    });
-});
-</script>
-
-        </div>
-    </section>
-
-        <footer id="contact">
-        <div class="container footer-content">
-            <h3>Contactează-ne</h3>
-            <p>Email: contact@sparkles-kids.com</p>
-            <p>Telefon: +40 758 679 909</p>
-            <div class="social-links">
-                <a href="https://www.facebook.com/share/12KfemB8Wpa/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://www.instagram.com/sparkles.kids?igsh=MW1wOG9qeW54czQ5aw==" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.tiktok.com/@sparkleskids3?_t=ZN-8yxkfVXx4pK&_r=1" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-            </div>
-            <p class="copyright">© 2025 Sparkle Kids. Toate drepturile rezervate.</p>
-        </div>
-    </footer>
-
-    <!-- Optimized JavaScript -->
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    <script>
-        // Service Worker
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js')
-                .then(registration => console.log('ServiceWorker registration successful'))
-                .catch(err => console.log('ServiceWorker registration failed: ', err));
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            // Intersection Observer for lazy loading images
-            if ('IntersectionObserver' in window) {
-                const imageObserver = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const img = entry.target;
-                            if (img.dataset.src) {
-                                img.src = img.dataset.src;
-                                img.removeAttribute('data-src');
-                            }
-                            observer.unobserve(img);
+    document.addEventListener('DOMContentLoaded', function() {
+        // Intersection Observer for lazy loading images
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        if (img.dataset.src) {
+                            img.src = img.dataset.src;
+                            img.removeAttribute('data-src');
                         }
-                    });
-                }, { rootMargin: '50px 0px', threshold: 0.01 });
-
-                document.querySelectorAll('img[loading="lazy"]').forEach(img => {
-                    imageObserver.observe(img);
-                });
-            }
-
-            // Special Offer Modal
-            const modal = document.getElementById('specialOfferModal');
-            if (modal) {
-                setTimeout(() => modal.classList.add('active'), 1000);
-                modal.addEventListener('click', e => {
-                    if (e.target === modal) modal.classList.remove('active');
-                });
-            }
-
-            // Accordion toggles
-            document.querySelectorAll('.service-header').forEach(header => {
-                header.addEventListener('click', function() {
-                    const content = this.nextElementSibling;
-                    const arrow = this.querySelector('.arrow');
-                    const isOpen = content.classList.contains('show');
-
-                    if (isOpen) {
-                        content.style.maxHeight = '0px';
-                        content.style.paddingTop = '0px';
-                        content.style.paddingBottom = '0px';
-                        content.classList.remove('show');
-                        arrow.classList.remove('down');
-                    } else {
-                        content.classList.add('show');
-                        content.style.maxHeight = content.scrollHeight + 'px';
-                        content.style.paddingTop = '25px';
-                        content.style.paddingBottom = '40px';
-                        arrow.classList.add('down');
+                        observer.unobserve(img);
                     }
-                }, { passive: true });
-            });
-
-            // Open first service by default
-            const firstService = document.querySelector('.service-header');
-            if(firstService) firstService.click();
-
-            // Smooth scroll for anchors
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    document.querySelector(this.getAttribute('href'))
-                        .scrollIntoView({ behavior: 'smooth' });
                 });
+            }, { rootMargin: '50px 0px', threshold: 0.01 });
+
+            document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+                imageObserver.observe(img);
             });
+        }
 
-            // Review Form Submission (Formspree)
-            const reviewForm = document.getElementById('reviewForm');
-            const reviewMessageDiv = document.getElementById('reviewMessage');
+        // Special Offer Modal
+        const modal = document.getElementById('specialOfferModal');
+        if (modal) {
+            setTimeout(() => modal.classList.add('active'), 1000);
+            modal.addEventListener('click', e => {
+                if (e.target === modal) modal.classList.remove('active');
+            });
+        }
 
-            reviewForm.addEventListener('submit', function(e){
+        // Accordion toggles
+        document.querySelectorAll('.service-header').forEach(header => {
+            header.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                const arrow = this.querySelector('.arrow');
+                const isOpen = content.classList.contains('show');
+
+                if (isOpen) {
+                    content.style.maxHeight = '0px';
+                    content.style.paddingTop = '0px';
+                    content.style.paddingBottom = '0px';
+                    content.classList.remove('show');
+                    arrow.classList.remove('down');
+                } else {
+                    content.classList.add('show');
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                    content.style.paddingTop = '25px';
+                    content.style.paddingBottom = '40px';
+                    arrow.classList.add('down');
+                }
+            }, { passive: true });
+        });
+
+        // Open first service by default
+        const firstService = document.querySelector('.service-header');
+        if(firstService) firstService.click();
+
+        // Smooth scroll for anchors
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                const formData = new FormData(reviewForm);
-
-                fetch(reviewForm.action, {
-                    method: 'POST',
-                    body: formData,
-                    headers: { 'Accept': 'application/json' }
-                }).then(response => {
-                    if(response.ok){
-                        reviewMessageDiv.textContent = "Recenzia a fost trimisă cu succes!";
-                        reviewMessageDiv.className = 'form-message success';
-                        reviewForm.reset();
-                    } else {
-                        response.json().then(data => {
-                            reviewMessageDiv.textContent = data?.errors?.[0]?.message || "A apărut o eroare. Vă rugăm încercați din nou.";
-                            reviewMessageDiv.className = 'form-message error';
-                        });
-                    }
-                }).catch(error => {
-                    reviewMessageDiv.textContent = "A apărut o eroare. Vă rugăm încercați din nou.";
-                    reviewMessageDiv.className = 'form-message error';
-                });
+                document.querySelector(this.getAttribute('href'))
+                    .scrollIntoView({ behavior: 'smooth' });
             });
         });
-    </script>
+
+        // Review Form Submission (Formspree)
+        const reviewForm = document.getElementById('reviewForm');
+        const reviewMessageDiv = document.getElementById('reviewMessage');
+
+        reviewForm.addEventListener('submit', function(e){
+            e.preventDefault();
+            const formData = new FormData(reviewForm);
+
+            fetch(reviewForm.action, {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            }).then(response => {
+                if(response.ok){
+                    reviewMessageDiv.textContent = "Recenzia a fost trimisă cu succes!";
+                    reviewMessageDiv.className = 'form-message success';
+                    reviewForm.reset();
+                } else {
+                    response.json().then(data => {
+                        reviewMessageDiv.textContent = data?.errors?.[0]?.message || "A apărut o eroare. Vă rugăm încercați din nou.";
+                        reviewMessageDiv.className = 'form-message error';
+                    });
+                }
+            }).catch(error => {
+                reviewMessageDiv.textContent = "A apărut o eroare. Vă rugăm încercați din nou.";
+                reviewMessageDiv.className = 'form-message error';
+            });
+        });
+    });
+</script>
 </body>
 </html>
