@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recenzii - Sparkles Kids</title>
+    <meta name="description" content="Vedeți ce spun părinții despre petrecerile organizate de Sparkles Kids. Recenzii autentice și feedback-uri sincere.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!--  -->
+    <link rel="stylesheet" href="css/shared-styles.css">
+    <link rel="icon" type="image/x-icon" href="images/logo.ico">
+    <style>
+        :root {
+            --color-red: #FF6B6B;
+            --color-orange: #FFB347;
+            --color-yellow: #FFD93D;
+            --color-green: #6BCB77;
+            --color-blue: #4CACFF;
+            --color-purple: #B39DDB;
+            --color-pink: #FF8FAB;
+            --primary-gradient-1: #FF8FAB;
+            --primary-gradient-2: #4CACFF;
+            --text-dark: #4A4A4A;
+            --text-gray: #787878;
+            --bg-light: #FFFFFF;
+            --bg-gray: #F8F8F8;
+            --team-text: #666666;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .font-display {
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        .navigation {
+            background: white;
+            border-bottom: 1px solid #E0E0E0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .reviews-container {
+            padding-top: 80px;
+            min-height: 100vh;
+        }
+        
+        .stats-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid #E0E0E0;
+        }
+        
+        .stats-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--color-orange), var(--color-red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        .review-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid #E0E0E0;
+            margin-bottom: 24px;
+            transition: all 0.3s ease;
+        }
+        
+        .review-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+        
+        .star-rating {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 12px;
+        }
+        
+        .star {
+            font-size: 20px;
+            color: var(--color-yellow);
+            text-shadow: 0 2px 4px rgba(255, 217, 61, 0.2);
+        }
+        
+        .star.empty {
+            color: #E0E0E0;
+            text-shadow: none;
+        }
+        
+        .review-form {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            border: 1px solid #E0E0E0;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #E0E0E0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-coral);
+            box-shadow: 0 0 0 3px rgba(255, 138, 128, 0.1);
+        }
+        
+        .interactive-stars {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        
+        .interactive-stars .star {
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 32px;
+        }
+        
+        .interactive-stars .star:hover {
+            transform: scale(1.2);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--color-pink), var(--color-blue));
+            color: white;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 143, 171, 0.25);
+        }
+        
+        .filter-btn {
+            padding: 12px 24px;
+            border: 2px solid #E0E0E0;
+            border-radius: 8px;
+            background: white;
+            color: var(--text-dark);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 4px;
+        }
+        
+        .filter-btn:hover {
+            border-color: var(--color-blue);
+            color: var(--color-blue);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(76, 172, 255, 0.1);
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, var(--color-pink), var(--color-blue));
+            border: none;
+            color: white;
+            box-shadow: 0 4px 12px rgba(255, 143, 171, 0.2);
+        }
+        
+        .footer {
+            background: linear-gradient(160deg, var(--color-blue), var(--color-purple));
+            color: white;
+            padding: 48px 0 24px;
+            margin-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 90% 10%, var(--color-pink) 0%, transparent 20%),
+                radial-gradient(circle at 10% 90%, var(--color-yellow) 0%, transparent 20%);
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        
+        .footer a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .footer a:hover {
+            opacity: 0.8;
+        }
+        
+        .success-message {
+            background: var(--color-green);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+            display: none;
+            box-shadow: 0 4px 15px rgba(107, 203, 119, 0.2);
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Mobile Navigation */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: white;
+            border-bottom: 1px solid #E0E0E0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 999;
+        }
+        
+        .mobile-menu.active {
+            display: block;
+        }
+        
+        .mobile-menu a {
+            display: block;
+            padding: 16px 20px;
+            color: var(--text-dark);
+            text-decoration: none;
+            border-bottom: 1px solid #F0F0F0;
+            font-weight: 500;
+        }
+        
+        .mobile-menu a:hover {
+            background: var(--bg-light);
+            color: var(--primary-coral);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+        
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link.active {
+            color: var(--primary-coral);
+            font-weight: 700;
+            background: rgba(255, 138, 128, 0.1);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+            width: 80%;
+            height: 2px;
+            background-color: var(--primary-coral);
+            border-radius: 2px;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            transform: scaleX(1);
+        }
+        
+        @media (max-width: 768px) {
+            .reviews-container {
+                padding-top: 60px;
+            }
+            
+            .review-form {
+                padding: 24px;
+            }
+            
+            .interactive-stars .star {
+                font-size: 24px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hidden.md\\:flex {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navigation">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between py-4">
+                <div class="font-display text-2xl font-bold text-primary-teal">
+                    ✨ Sparkles Kids
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-6">
+                    <a href="index.html" class="nav-link text-gray-700 hover:text-primary-coral transition-colors font-medium">Acasă</a>
+                    <a href="index.html#services" class="nav-link text-gray-700 hover:text-primary-coral transition-colors font-medium">Servicii</a>
+                    <a href="index.html#team" class="nav-link text-gray-700 hover:text-primary-coral transition-colors font-medium">Echipa</a>
+                    <!-- <a href="galerie.html" class="nav-link text-gray-700 hover:text-primary-coral transition-colors font-medium">Galerie</a> -->
+                    <a href="recenzii.html" class="nav-link active text-gray-700 hover:text-primary-coral transition-colors font-medium">Recenzii</a>
+                    <a href="rezervare.html" class="nav-link text-gray-700 hover:text-primary-coral transition-colors font-medium">Rezervă</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+                <!-- Mobile Menu -->
+        <div id="mobileMenu" class="mobile-menu">
+            <a href="index.html" onclick="closeMobileMenu()">Acasă</a>
+            <a href="index.html#services" onclick="closeMobileMenu()">Servicii</a>
+            <a href="index.html#team" onclick="closeMobileMenu()">Echipa</a>
+            <!-- <a href="galerie.html" onclick="closeMobileMenu()">Galerie</a> -->
+            <a href="recenzii.html" onclick="closeMobileMenu()">Recenzii</a>
+            <a href="rezervare.html" onclick="closeMobileMenu()">Rezervă Acum</a>
+        </div>
+    </nav>
+    
+    <!-- Reviews Section -->
+    <section class="reviews-container">
+        <div class="container mx-auto px-4 py-12">
+            <div class="text-center mb-12">
+                <h1 class="font-display text-4xl lg:text-5xl font-bold text-gray-800 mb-6">
+                    Recenzii și Opinii
+                </h1>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Află ce spun părinții despre experiența lor cu Sparkles Kids. Feedback-ul vostru ne ajută să fim mai buni în fiecare zi.
+                </p>
+            </div>
+            
+            <!-- Statistics -->
+            <!--
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <div class="stats-card">
+                    <div class="stats-number">127</div>
+                    <div class="text-gray-600 font-medium">Recenzii</div>
+                </div>
+                <div class="stats-card">
+                    <div class="stats-number">4.8</div>
+                    <div class="text-gray-600 font-medium">Rating Mediu</div>
+                </div>
+                <div class="stats-card">
+                    <div class="stats-number">95%</div>
+                    <div class="text-gray-600 font-medium">Recomandă</div>
+                </div>
+                <div class="stats-card">
+                    <div class="stats-number">100%</div>
+                    <div class="text-gray-600 font-medium">Satisfacție</div>
+                </div>
+            </div>
+            -->
+            
+            <!-- Review Form -->
+            <div class="max-w-4xl mx-auto mb-12">
+                <div class="review-form">
+                    <h3 class="font-display text-2xl font-bold text-gray-800 mb-6 text-center">
+                        Lasă o Recenzie
+                    </h3>
+                    
+                    <div id="reviewSuccessMessage" class="success-message">
+                        <strong>Recenzia a fost trimisă cu succes!</strong><br>
+                        Vă mulțumim pentru feedback. Recenzia va fi publicată după verificare.
+                    </div>
+                    
+                    <form action="https://formspree.io/f/xovlzznd" method="POST" id="reviewForm">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="form-group">
+                                <label>Rating *</label>
+                                <select name="rating" required class="w-full">
+                                    <option value="">Selectați rating-ul</option>
+                                    <option value="5">★★★★★ (5 stele)</option>
+                                    <option value="4">★★★★☆ (4 stele)</option>
+                                    <option value="3">★★★☆☆ (3 stele)</option>
+                                    <option value="2">★★☆☆☆ (2 stele)</option>
+                                    <option value="1">★☆☆☆☆ (1 stea)</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="partyType">Tip Petrecere *</label>
+                                <select id="partyType" name="partyType" required>
+                                    <option value="">Selectați tipul</option>
+                                    <option value="themed">Petrecere cu Tematică</option>
+                                    <option value="anniversary">Petrecere Aniversară</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="form-group">
+                                <label for="name">Nume *</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="childName">Numele Copilului</label>
+                            <input type="text" id="childName" name="childName">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Recenzia Dvs. *</label>
+                            <textarea id="message" name="message" rows="4" required placeholder="Spuneți-ne despre experiența dvs..."></textarea>
+                        </div>
+                        
+                        <div class="text-center">
+                            <button type="submit" class="btn-primary">Trimite Recenzia</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Filter Buttons 
+            <div class="flex flex-wrap justify-center mb-8">
+                <button class="filter-btn active" data-filter="all">Toate Recenziile</button>
+                <button class="filter-btn" data-filter="5">★★★★★</button>
+                <button class="filter-btn" data-filter="4">★★★★☆</button>
+                <button class="filter-btn" data-filter="3">★★★☆☆</button>
+                <button class="filter-btn" data-filter="themed">Petreceri Tematice</button>
+                <button class="filter-btn" data-filter="anniversary">Petreceri Aniversare</button>
+            </div>-->
+            
+            <!-- Reviews Grid -->
+        <!-- 
+            <div id="reviewsGrid" class="space-y-6"> -->
+                <!-- Sample Reviews 
+                <div class="review-card" data-rating="5" data-type="themed">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-primary-coral rounded-full flex items-center justify-center text-white font-bold">
+                            MP
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-4 mb-2">
+                                <h4 class="font-bold text-gray-800 text-lg">Maria Popescu</h4>
+                                <div class="star-rating">
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                </div>
+                                <span class="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded">Petrecere Tematică</span>
+                            </div>
+                            <p class="text-gray-600 mb-3 text-lg leading-relaxed">
+                                "Petrecerea organizată de Sparkles Kids a fost absolut fantastică! Fiica mea a fost încântată, iar invitații încă vorbesc despre experiență. Animatorii sunt profesioniști și copiii s-au simțit minunat. Recomand cu toată încrederea!"
+                            </p>
+                            <div class="text-sm text-gray-500">
+                                Petrecere pentru Ana (8 ani) • Acum 2 săptămâni
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="review-card" data-rating="5" data-type="anniversary">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-primary-teal rounded-full flex items-center justify-center text-white font-bold">
+                            AI
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-4 mb-2">
+                                <h4 class="font-bold text-gray-800 text-lg">Andrei Ionescu</h4>
+                                <div class="star-rating">
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                </div>
+                                <span class="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded">Petrecere Aniversară</span>
+                            </div>
+                            <p class="text-gray-600 mb-3 text-lg leading-relaxed">
+                                "Echipa este extraordinară! Copiii s-au distrat de minune, iar eu am putut să mă relaxez știind că sunt pe mâini bune. Organizare impecabilă, activități diverse, iar Spiderman a fost senzațional!"
+                            </p>
+                            <div class="text-sm text-gray-500">
+                                Petrecere pentru David (6 ani) • Acum 1 lună
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="review-card" data-rating="4" data-type="themed">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-accent-lavender rounded-full flex items-center justify-center text-white font-bold">
+                            ED
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-4 mb-2">
+                                <h4 class="font-bold text-gray-800 text-lg">Elena Dumitrescu</h4>
+                                <div class="star-rating">
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star empty">★</span>
+                                </div>
+                                <span class="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded">Petrecere Tematică</span>
+                            </div>
+                            <p class="text-gray-600 mb-3 text-lg leading-relaxed">
+                                "Foarte mulțumită de servicii! Copiii s-au distrat excelent, iar face painting-ul a fost un real succes. Singurul motiv pentru care nu dau 5 stele este că am avut un pic de întârziere la început, dar în rest totul a fost perfect."
+                            </p>
+                            <div class="text-sm text-gray-500">
+                                Petrecere pentru Sofia (7 ani) • Acum 3 săptămâni
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="review-card" data-rating="5" data-type="anniversary">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-accent-yellow rounded-full flex items-center justify-center text-gray-800 font-bold">
+                            CM
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-4 mb-2">
+                                <h4 class="font-bold text-gray-800 text-lg">Cristina Marinescu</h4>
+                                <div class="star-rating">
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                </div>
+                                <span class="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded">Petrecere Aniversară</span>
+                            </div>
+                            <p class="text-gray-600 mb-3 text-lg leading-relaxed">
+                                "Cea mai bună alegere pentru petrecerea copilului meu! Totul a fost perfect: de la decoruri la activități și animatorii în costume. Cenușăreasa a fost preferata tuturor copiilor. Mulțumim pentru experiența de neuitat!"
+                            </p>
+                            <div class="text-sm text-gray-500">
+                                Petrecere pentru Matei (5 ani) • Acum 2 zile
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="review-card" data-rating="5" data-type="themed">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-primary-coral rounded-full flex items-center justify-center text-white font-bold">
+                            GR
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex items-center gap-4 mb-2">
+                                <h4 class="font-bold text-gray-800 text-lg">Georgiana Radu</h4>
+                                <div class="star-rating">
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                    <span class="star">★</span>
+                                </div>
+                                <span class="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded">Petrecere Tematică</span>
+                            </div>
+                            <p class="text-gray-600 mb-3 text-lg leading-relaxed">
+                                "Super profesioniști! Am organizat petrecerea în grădină și a plouat, dar echipa s-a adaptat imediat și a mutat totul în interior fără probleme. Copiii nici nu au observat schimbarea. Bravo pentru flexibilitate și dedicare!"
+                            </p>
+                            <div class="text-sm text-gray-500">
+                                Petrecere pentru Ioana (9 ani) • Acum 1 săptămână
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            -->
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <div class="font-display text-2xl font-bold mb-4">✨ Sparkles Kids</div>
+                    <p class="text-gray-200">
+                        Creăm momente magice pentru copiii tăi. Petreceri de neuitat, pline de bucurie și distracție.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Link-uri Utile</h4>
+                    <div class="space-y-2">
+                        <div><a href="index.html">Acasă</a></div>
+                        <div><a href="index.html#services">Servicii</a></div>
+                        <div><a href="galerie.html">Galerie Foto</a></div>
+                        <div><a href="rezervare.html">Rezervă Acum</a></div>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Contact</h4>
+                    <div class="space-y-2">
+                        <div>📧 contact@sparkles-kids.com</div>
+                        <div>📱 +40 758 679 909</div>
+                        <div>🕒 Program: 9:00 - 20:00</div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-600 pt-6 text-center text-gray-300">
+                © 2025 Sparkle Kids. Toate drepturile rezervate. | Design modern pentru experiențe magice ✨
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script>
+        let currentRating = 0;
+        
+        // Star rating functionality
+        const stars = document.querySelectorAll('.interactive-stars .star');
+        
+        stars.forEach((star, index) => {
+            star.addEventListener('click', () => {
+                currentRating = index + 1;
+                updateStarRating();
+            });
+            
+            star.addEventListener('mouseenter', () => {
+                setStarRating(index + 1);
+            });
+        });
+        
+        document.querySelector('.interactive-stars').addEventListener('mouseleave', () => {
+            setStarRating(currentRating);
+        });
+        
+        function setStarRating(rating) {
+            stars.forEach((star, index) => {
+                if (index < rating) {
+                    star.classList.remove('text-gray-300');
+                    star.classList.add('text-yellow-400');
+                } else {
+                    star.classList.remove('text-yellow-400');
+                    star.classList.add('text-gray-300');
+                }
+            });
+        }
+        
+        function updateStarRating() {
+            setStarRating(currentRating);
+            document.querySelector('.interactive-stars').dataset.rating = currentRating;
+        }
+        
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const reviewCards = document.querySelectorAll('.review-card');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Update active button
+                filterBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                const filter = this.dataset.filter;
+                
+                reviewCards.forEach(card => {
+                    const rating = card.dataset.rating;
+                    const type = card.dataset.type;
+                    
+                    let show = false;
+                    
+                    if (filter === 'all') {
+                        show = true;
+                    } else if (filter === 'themed' || filter === 'anniversary') {
+                        show = type === filter;
+                    } else {
+                        show = rating === filter;
+                    }
+                    
+                    if (show) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Form submission
+        document.getElementById('reviewForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Hide success message
+            document.getElementById('reviewSuccessMessage').style.display = 'none';
+            
+            // Validate form
+            const requiredFields = ['reviewerName', 'childName', 'partyType'];
+            let isValid = true;
+            
+            if (currentRating === 0) {
+                isValid = false;
+            }
+            
+            requiredFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.style.borderColor = '#f44336';
+                } else {
+                    field.style.borderColor = '#E0E0E0';
+                }
+            });
+            
+            if (isValid) {
+                // Show success message
+                document.getElementById('reviewSuccessMessage').style.display = 'block';
+                
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                
+                // Reset form after 3 seconds
+                setTimeout(() => {
+                    this.reset();
+                    currentRating = 0;
+                    setStarRating(0);
+                    document.getElementById('reviewSuccessMessage').style.display = 'none';
+                }, 3000);
+                
+            } else {
+                alert('Vă rugăm să completați toate câmpurile obligatorii și să acordați un rating.');
+            }
+        });
+        
+        // Mobile menu functions
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+        }
+        
+        function closeMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.remove('active');
+        }
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuButton = document.querySelector('.mobile-menu-btn');
+            
+            if (!mobileMenu.contains(e.target) && !menuButton.contains(e.target)) {
+                mobileMenu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

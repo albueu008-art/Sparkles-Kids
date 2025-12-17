@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rezervare - Sparkles Kids</title>
+    <meta name="description" content="Rezervă o petrecere magică pentru copilul tău la Sparkles Kids. Formular simplu și rapid de rezervare.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="css/shared-styles.css">
+    <link rel="icon" type="image/x-icon" href="images/logo.ico">
+    <style>
+        :root {
+            --color-red: #FF6B6B;
+            --color-orange: #FFB347;
+            --color-yellow: #FFD93D;
+            --color-green: #6BCB77;
+            --color-blue: #4CACFF;
+            --color-purple: #B39DDB;
+            --color-pink: #FF8FAB;
+            --primary-gradient-1: #FF8FAB;
+            --primary-gradient-2: #4CACFF;
+            --text-dark: #4A4A4A;
+            --text-gray: #787878;
+            --bg-light: #FFFFFF;
+            --bg-gray: #F8F8F8;
+            --team-text: #666666;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .font-display {
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        .navigation {
+            background: white;
+            border-bottom: 1px solid #E0E0E0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .booking-container {
+            padding-top: 80px;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--color-pink) 0%, var(--color-blue) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .booking-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, var(--color-yellow) 0%, transparent 25%),
+                radial-gradient(circle at 80% 80%, var(--color-purple) 0%, transparent 25%),
+                radial-gradient(circle at 50% 50%, var(--color-green) 0%, transparent 25%);
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        
+        .booking-form {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--color-pink), var(--color-blue));
+            color: white;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 143, 171, 0.25);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-teal);
+            padding: 12px 24px;
+            border: 2px solid var(--primary-teal);
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-secondary:hover {
+            background: var(--primary-teal);
+            color: white;
+        }
+        
+        .package-card {
+            border: 3px solid #E0E0E0;
+            border-radius: 16px;
+            padding: 32px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+            margin-bottom: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .package-card:hover {
+            border-color: var(--color-blue);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(76, 172, 255, 0.15);
+        }
+        
+        .package-card.selected {
+            border-color: var(--color-pink);
+            background: linear-gradient(135deg, 
+                rgba(255, 143, 171, 0.05),
+                rgba(76, 172, 255, 0.05)
+            );
+        }
+        
+        .package-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.1) 50%,
+                transparent 100%
+            );
+            transition: transform 0.3s ease;
+            transform: translateX(-100%) translateY(-100%) rotate(45deg);
+        }
+        
+        .package-card:hover::before {
+            transform: translateX(100%) translateY(100%) rotate(45deg);
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #E0E0E0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-coral);
+            box-shadow: 0 0 0 3px rgba(255, 138, 128, 0.1);
+        }
+        
+        .price-summary {
+            background: #F5F5F5;
+            border-radius: 12px;
+            padding: 32px;
+            margin-top: 32px;
+            border: 2px solid #E0E0E0;
+        }
+        
+        .total-price {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--color-orange), var(--color-red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: center;
+        }
+        
+        .footer {
+            background: linear-gradient(160deg, var(--color-blue), var(--color-purple));
+            color: white;
+            padding: 48px 0 24px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 90% 10%, var(--color-pink) 0%, transparent 20%),
+                radial-gradient(circle at 10% 90%, var(--color-yellow) 0%, transparent 20%);
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        
+        .footer a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .footer a:hover {
+            opacity: 0.8;
+        }
+        
+        .success-message {
+            background: var(--color-green);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+            display: none;
+            box-shadow: 0 4px 15px rgba(107, 203, 119, 0.2);
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .error-message {
+            background: var(--color-red);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+            display: none;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.2);
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Mobile Navigation */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: white;
+            border-bottom: 1px solid #E0E0E0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 999;
+        }
+        
+        .mobile-menu.active {
+            display: block;
+        }
+        
+        .mobile-menu a {
+            display: block;
+            padding: 16px 20px;
+            color: var(--text-dark);
+            text-decoration: none;
+            border-bottom: 1px solid #F0F0F0;
+            font-weight: 500;
+        }
+        
+        .mobile-menu a:hover {
+            background: var(--bg-light);
+            color: var(--primary-coral);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+        
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link.active {
+            color: var(--primary-coral);
+            font-weight: 700;
+            background: rgba(255, 138, 128, 0.1);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+            width: 80%;
+            height: 2px;
+            background-color: var(--primary-coral);
+            border-radius: 2px;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            transform: scaleX(1);
+        }
+        
+        @media (max-width: 768px) {
+            .booking-container {
+                padding-top: 60px;
+            }
+            
+            .booking-form {
+                padding: 24px;
+                margin: 16px;
+            }
+            
+            .package-card {
+                padding: 20px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hidden.md\\:flex {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navigation">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between py-4">
+                <div class="font-display text-2xl font-bold text-primary-teal">
+                    ✨ Sparkles Kids
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-6">
+                    <a href="index.html" class="nav-link text-gray-700 hover:text-primary-coral transition-colors font-medium">Acasă</a>
+                    <a href="index.html#services" class="nav-link text-gray-700 hover:text-primary-coral transition-colors font-medium">Servicii</a>
+                    <a href="index.html#team" class="nav-link text-gray-700 hover:text-primary-coral transition-colors font-medium">Echipa</a>
+                    <!-- <a href="galerie.html" class="nav-link text-gray-700 hover:text-primary-coral transition-colors font-medium">Galerie</a> -->
+                    <a href="recenzii.html" class="nav-link text-gray-700 hover:text-primary-coral transition-colors font-medium">Recenzii</a>
+                    <a href="rezervare.html" class="nav-link active text-gray-700 hover:text-primary-coral transition-colors font-medium">Rezervă</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="mobile-menu">
+            <a href="index.html" onclick="closeMobileMenu()">Acasă</a>
+            <a href="index.html#services" onclick="closeMobileMenu()">Servicii</a>
+            <a href="index.html#team" onclick="closeMobileMenu()">Echipa</a>
+            <!-- <a href="galerie.html" onclick="closeMobileMenu()">Galerie</a> -->
+            <a href="recenzii.html" onclick="closeMobileMenu()">Recenzii</a>
+            <a href="index.html" onclick="closeMobileMenu()">Rezervă Acum</a>
+        </div>
+    </nav>
+    
+    <!-- Booking Section -->
+    <section class="booking-container">
+        <div class="container mx-auto px-4 pb-12">
+            <div class="booking-form">
+                <div class="text-center mb-8">
+                    <h1 class="font-display text-4xl font-bold text-gray-800 mb-4">
+                        Rezervă o Petrecere Magică
+                    </h1>
+                    <p class="text-lg text-gray-600">
+                        Completează formularul și transformăm visul copilului tău în realitate!
+                    </p>
+                </div>
+                
+                <!-- Success/Error Messages -->
+                <div id="successMessage" class="success-message">
+                    <strong>Rezervare trimisă cu succes!</strong><br>
+                    Vă vom contacta în cel mai scurt timp pentru confirmare.
+                </div>
+                
+                <div id="errorMessage" class="error-message">
+                    <strong>Eroare!</strong><br>
+                    Vă rugăm să completați toate câmpurile obligatorii.
+                </div>
+                
+                <!-- Booking Form -->
+                <form action="https://formspree.io/f/mrblvvar" method="POST">
+                    <!-- Package Selection -->
+                    <div class="mb-8">
+                        <h2 class="font-display text-2xl font-bold text-gray-800 mb-6 text-center">
+                            Alege Tipul de Petrecere
+                        </h2>
+                        
+                        <div class="package-selection mb-4">
+                            <input type="radio" id="themed" name="packageType" value="Petrecere cu Tematică - 50 RON/persoană" class="hidden" required>
+                            <label for="themed" class="package-card" data-package="themed" data-price="50">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="font-display text-xl font-bold text-gray-800">Petrecere cu Tematică</h3>
+                                    <div class="text-2xl font-bold text-primary-coral">50 RON / persoană</div>
+                                </div>
+                                <ul class="space-y-2 text-gray-600">
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-green-500 font-bold">✓</span>
+                                        2h de distracție neîncetată
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-green-500 font-bold">✓</span>
+                                        Spectacole de dans și face painting
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-green-500 font-bold">✓</span>
+                                        Candy bar și atelier craft
+                                    </li>
+                                </ul>
+                            </label>
+                        </div>
+                        
+                        <div class="package-selection">
+                            <input type="radio" id="anniversary" name="packageType" value="Petrecere Aniversară - 1000 RON" class="hidden" required>
+                            <label for="anniversary" class="package-card" data-package="anniversary" data-price="1000">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="font-display text-xl font-bold text-gray-800">Petrecere Aniversară</h3>
+                                    <div class="text-2xl font-bold text-primary-coral">1000 RON</div>
+                                </div>
+                                <ul class="space-y-2 text-gray-600">
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-green-500 font-bold">✓</span>
+                                        3h de distracție completă
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-green-500 font-bold">✓</span>
+                                        Invitații și supereroi animatori
+                                    </li>
+                                    <li class="flex items-center gap-2">
+                                        <span class="text-green-500 font-bold">✓</span>
+                                        Piñata, baloane și fotografii
+                                    </li>
+                                </ul>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- Date & Time -->
+                    <div class="grid md:grid-cols-2 gap-6 mb-8">
+                        <div class="form-group">
+                            <label for="partyDate">Data Petrecerii *</label>
+                            <input type="date" id="partyDate" name="partyDate" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="partyTime">Ora Petrecerii *</label>
+                            <select id="partyTime" name="partyTime" required class="w-full p-2 border rounded-lg">
+                                <option value="">Selectați ora</option>
+                                <option value="10:00">10:00</option>
+                                <option value="11:00">11:00</option>
+                                <option value="12:00">12:00</option>
+                                <option value="13:00">13:00</option>
+                                <option value="14:00">14:00</option>
+                                <option value="15:00">15:00</option>
+                                <option value="16:00">16:00</option>
+                                <option value="17:00">17:00</option>
+                                <option value="18:00">18:00</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Guest Details -->
+                    <div class="grid md:grid-cols-2 gap-6 mb-8">
+                        <div class="form-group">
+                            <label for="email">Email Părinte *</label>
+                            <input type="email" id="email" name="email" class="w-full p-2 border rounded-lg" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="parentName">Nume Părinte *</label>
+                            <input type="text" id="parentName" name="name" class="w-full p-2 border rounded-lg" required>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-6 mb-8">
+                        <div class="form-group">
+                            <label for="childAge">Varsta Copil *</label>
+                            <input type="number" id="childAge" name="childAge" class="w-full p-2 border rounded-lg" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="guestCount">Număr de Copii *</label>
+                            <input type="number" id="guestCount" name="guestCount" min="1" class="w-full p-2 border rounded-lg" required>
+                            <small class="text-gray-600">Notă: Prețul per copil se aplică pentru Petrecerea cu Tematică</small>
+                        </div>
+                    </div>
+
+                    <!-- Message field for any additional details -->
+                    <div class="form-group mb-8">
+                        <label for="message">Detalii Suplimentare</label>
+                        <textarea id="message" name="message" rows="4" class="w-full p-2 border rounded-lg" 
+                                placeholder="Cerințe speciale, alergii, sau alte mențiuni importante..."></textarea>
+                    </div>
+
+                    <!-- Hidden Fields -->
+                    <input type="hidden" name="_subject" value="Nouă Rezervare Petrecere">
+                    <input type="hidden" name="_template" value="table">
+
+                    <!-- Submit Button -->
+                    <div class="text-center">
+                        <button type="submit" class="btn-primary hover:bg-pink-600 transition-colors">
+                            Trimite Rezervarea
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <div class="font-display text-2xl font-bold mb-4">✨ Sparkles Kids</div>
+                    <p class="text-gray-200">
+                        Creăm momente magice pentru copiii tăi. Petreceri de neuitat, pline de bucurie și distracție.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Link-uri Utile</h4>
+                    <div class="space-y-2">
+                        <div><a href="#services">Servicii</a></div>
+                        <div><a href="#team">Echipa</a></div>
+                        <!-- <div><a href="galerie.html">Galerie Foto</a></div> -->
+                        <div><a href="recenzii.html">Recenzii</a></div>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Contact</h4>
+                    <div class="space-y-2">
+                        <div>📧 contact@sparkles-kids.com</div>
+                        <div>📱 +40 758 679 909</div>
+                        <div>🕒 Program: 9:00 - 20:00</div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-600 pt-6 text-center text-gray-300">
+                © 2025 Sparkle Kids. Toate drepturile rezervate. | Design modern pentru experiențe magice ✨
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+        }
+        
+        function closeMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.remove('active');
+        }
+        
+        // Form submission handler
+        document.getElementById('reservationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Simple form validation
+            let isValid = true;
+            const formGroups = document.querySelectorAll('.form-group');
+            formGroups.forEach(group => {
+                const input = group.querySelector('input, select');
+                if (!input.value) {
+                    isValid = false;
+                    group.classList.add('border-red-500');
+                } else {
+                    group.classList.remove('border-red-500');
+                }
+            });
+            
+            if (!isValid) {
+                document.getElementById('errorMessage').style.display = 'block';
+                document.getElementById('successMessage').style.display = 'none';
+                return;
+            }
+            
+            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'block';
+            
+            // Here you can add the code to submit the form data to your server
+        });
+    </script>
+</body>
+</html>
+</html>

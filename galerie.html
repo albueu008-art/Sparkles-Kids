@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galerie Foto - Sparkles Kids</title>
+    <meta name="description" content="Vedeți fotografii de la petrecerile organizate de Sparkles Kids. Momentele magice capturate în imagini de neuitat.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Preload critical images -->
+    <link rel="preload" as="image" href="images/gallery1.webp">
+    
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="css/shared-styles.css">
+    <link rel="icon" type="image/x-icon" href="images/logo.ico">
+    
+    <style>
+        :root {
+            --color-red: #FF6B6B;
+            --color-orange: #FFB347;
+            --color-yellow: #FFD93D;
+            --color-green: #6BCB77;
+            --color-blue: #4CACFF;
+            --color-purple: #B39DDB;
+            --color-pink: #FF8FAB;
+            --primary-gradient-1: #FF8FAB;
+            --primary-gradient-2: #4CACFF;
+            --text-dark: #4A4A4A;
+            --text-gray: #787878;
+            --bg-light: #FFFFFF;
+            --bg-gray: #F8F8F8;
+            --team-text: #666666;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Image optimization */
+        img {
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+        }
+        
+        /* Lazy loading placeholder */
+        img[loading="lazy"] {
+            background: #f0f0f0;
+            transition: opacity 0.3s ease;
+        }
+        
+        img[loading="lazy"]:not([src]) {
+            opacity: 0;
+        }
+        
+        .font-display {
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        .navigation {
+            background: white;
+            border-bottom: 1px solid #E0E0E0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .gallery-container {
+            padding-top: 80px;
+            min-height: 100vh;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 32px;
+        }
+        
+        .gallery-item {
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: zoom-in;
+            transition: all 0.3s ease;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid #E0E0E0;
+            height: 300px;
+            opacity: 1;
+            transform: scale(1);
+            transition: all 0.3s ease-in-out;
+            position: relative;
+        }
+
+        .gallery-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                rgba(255, 143, 171, 0.1), 
+                rgba(76, 172, 255, 0.1)
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(76, 172, 255, 0.15);
+        }
+        
+        .gallery-item:hover::before {
+            opacity: 1;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 25%; /* Adjust photo position */
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-info {
+            padding: 20px;
+        }
+        
+        .gallery-title {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+        
+        .gallery-description {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        
+        .filter-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 32px;
+        }
+        
+        .button-gallery {
+            display: inline-block;
+            background: var(--primary-coral);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            margin: 10px;
+        }
+
+        .button-gallery:hover {
+            background: #FF7043;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 138, 128, 0.3);
+        }
+        
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .lightbox.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+        
+        .lightbox-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 32px;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .stats-section {
+            background: white;
+            border-radius: 12px;
+            padding: 32px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid #E0E0E0;
+            margin-bottom: 32px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--color-orange), var(--color-red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        .stat-label {
+            color: var(--text-gray);
+            font-size: 16px;
+            margin-top: 8px;
+        }
+        
+        .footer {
+            background: linear-gradient(160deg, var(--color-blue), var(--color-purple));
+            color: white;
+            padding: 48px 0 24px;
+            margin-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 90% 10%, var(--color-pink) 0%, transparent 20%),
+                radial-gradient(circle at 10% 90%, var(--color-yellow) 0%, transparent 20%);
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        
+        .footer a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .footer a:hover {
+            opacity: 0.8;
+        }
+        
+        /* Mobile Navigation */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: white;
+            border-bottom: 1px solid #E0E0E0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 999;
+        }
+        
+        .mobile-menu.active {
+            display: block;
+        }
+        
+        .mobile-menu a {
+            display: block;
+            padding: 16px 20px;
+            color: var(--text-dark);
+            text-decoration: none;
+            border-bottom: 1px solid #F0F0F0;
+            font-weight: 500;
+        }
+        
+        .mobile-menu a:hover {
+            background: var(--bg-light);
+            color: var(--primary-coral);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .gallery-container {
+                padding-top: 60px;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 16px;
+            }
+            
+            .filter-tabs {
+                gap: 8px;
+            }
+            
+            .filter-tab {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hidden.md\\:flex {
+                display: none !important;
+            }
+        }
+        
+        .nav-link {
+            position: relative;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link.active {
+            color: var(--primary-coral);
+            font-weight: 700;
+            background: rgba(255, 138, 128, 0.1);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+            width: 80%;
+            height: 2px;
+            background-color: var(--primary-coral);
+            border-radius: 2px;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            transform: scaleX(1);
+        }
+        
+        .gallery-filter-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background: transparent;
+            color: var(--text-dark);
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .gallery-filter-btn:hover {
+            background: linear-gradient(135deg, rgba(255, 143, 171, 0.1), rgba(76, 172, 255, 0.1));
+            color: var(--color-pink);
+            transform: translateY(-2px);
+        }
+
+        .gallery-filter-btn.active {
+            background: linear-gradient(135deg, var(--color-pink), var(--color-blue));
+            color: white;
+            border: none;
+            box-shadow: 0 4px 12px rgba(255, 143, 171, 0.2);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navigation">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between py-4">
+                <div class="font-display text-2xl font-bold text-primary-teal">
+                    ✨ Sparkles Kids
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-6">
+                    <a href="index.html" class="nav-link text-gray-700 hover:text-primary-coral transition-colors font-medium">Acasă</a>
+                    <a href="index.html#services" class="nav-link text-gray-700 hover:text-primary-coral transition-colors font-medium">Servicii</a>
+                    <a href="index.html#team" class="nav-link text-gray-700 hover:text-primary-coral transition-colors font-medium">Echipa</a>
+                    <a href="galerie.html" class="nav-link active text-gray-700 hover:text-primary-coral transition-colors font-medium">Galerie</a>
+                    <a href="recenzii.html" class="nav-link text-gray-700 hover:text-primary-coral transition-colors font-medium">Recenzii</a>
+                    <a href="rezervare.html" class="nav-link text-gray-700 hover:text-primary-coral transition-colors font-medium">Rezervă</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="mobile-menu">
+            <a href="index.html" onclick="closeMobileMenu()">Acasă</a>
+            <a href="index.html#services" onclick="closeMobileMenu()">Servicii</a>
+            <a href="index.html#team" onclick="closeMobileMenu()">Echipa</a>
+            <a href="recenzii.html" onclick="closeMobileMenu()">Recenzii</a>
+            <a href="rezervare.html" onclick="closeMobileMenu()">Rezervă</a>
+        </div>
+    </nav>
+    
+    <!-- Gallery Section -->
+    <section class="gallery-container">
+        <div class="container mx-auto px-4 py-12">
+            <div class="text-center mb-12">
+                <h1 class="font-display text-4xl lg:text-5xl font-bold text-gray-800 mb-6">
+                    Galerie Foto
+                </h1>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Bucurați-vă de momentele magice capturate la petrecile noastre. Fiecare imagine spune o poveste de bucurie, distracție și zâmbete.
+                </p>
+            </div>
+            
+            <!-- Statistics -->
+            <div class="stats-section">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Fotografii</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">127</div>
+                        <div class="stat-label">Petreceri</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">1000+</div>
+                        <div class="stat-label">Zâmbete</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Ani de Amintiri</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Filter Tabs -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button class="gallery-filter-btn active" data-filter="all">Toate</button>
+                <button class="gallery-filter-btn" data-filter="parties">Petreceri</button>
+                <button class="gallery-filter-btn" data-filter="decorations">Decoruri</button>
+                <button class="gallery-filter-btn" data-filter="activities">Activități</button>
+            </div>
+            
+            <!-- Gallery Grid -->
+            <div class="gallery-grid">
+                <div class="gallery-item" data-category="parties">
+                    <img src="images/gallery1.webp" alt="Petrecere Prințese Disney" loading="lazy">
+                    <div class="gallery-info">
+                        <div class="gallery-title">Petrecere Prințese Disney</div>
+                        <div class="gallery-description">Moment magic cu Elsa și Anna</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="activities">
+                    <img src="images/gallery2.webp" alt="Face Painting Artistic" loading="lazy">
+                    <div class="gallery-info">
+                        <div class="gallery-title">Face Painting Artistic</div>
+                        <div class="gallery-description">Transformare în personaje preferate</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="decorations">
+                    <img src="images/gallery3.webp" alt="Decoruri Spectaculoase" loading="lazy">
+                    <div class="gallery-info">
+                        <div class="gallery-title">Decoruri Spectaculoase</div>
+                        <div class="gallery-description">Arcadă de baloane personalizată</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="facilities">
+                    <img src="images/gallery4.webp" alt="Zona de Joacă Interactivă" loading="lazy">
+                    <div class="gallery-info">
+                        <div class="gallery-title">Zona de Joacă Interactivă</div>
+                        <div class="gallery-description">Echipamente moderne și sigure</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="activities">
+                    <img src="images/gallery5.webp" alt="Atelier de Craft Creativ" loading="lazy">
+                    <div class="gallery-info">
+                        <div class="gallery-title">Atelier de Craft Creativ</div>
+                        <div class="gallery-description">Creăm suveniruri unice</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="parties">
+                    <img src="images/gallery6.webp" alt="Petrecere Superhero" loading="lazy">
+                    <div class="gallery-info">
+                        <div class="gallery-title">Petrecere Superhero</div>
+                        <div class="gallery-description">Bucurie cu Spider-Man și Batman</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="decorations">
+                    <img src="images/gallery7.webp" alt="Decor Tematic Supereroi" loading="lazy">
+                    <div class="gallery-info">
+                        <div class="gallery-title">Decor Tematic Supereroi</div>
+                        <div class="gallery-description">Mesaj personalizat și decor atrăgător</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="activities">
+                    <img src="images/gallery8.webp" alt="Atelier de Pictură pe Față" loading="lazy">
+                    <div class="gallery-info">
+                        <div class="gallery-title">Atelier de Pictură pe Față</div>
+                        <div class="gallery-description">Creativitate și distracție garantată</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="facilities">
+                    <img src="images/gallery9.webp" alt="Spațiu de Joacă Sigur" loading="lazy">
+                    <div class="gallery-info">
+                        <div class="gallery-title">Spațiu de Joacă Sigur</div>
+                        <div class="gallery-description">Zonă de relaxare pentru părinți</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="parties">
+                    <img src="images/gallery10.webp" alt="Petrecere cu Tematica Spa" loading="lazy">
+                    <div class="gallery-info">
+                        <div class="gallery-title">Petrecere cu Tematica Spa</div>
+                        <div class="gallery-description">Răsfăț și distracție în același timp</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="decorations">
+                    <img src="images/gallery11.webp" alt="Decoruri Elegante pentru Petreceri" loading="lazy">
+                    <div class="gallery-info">
+                        <div class="gallery-title">Decoruri Elegante pentru Petreceri</div>
+                        <div class="gallery-description">Detalii care fac diferența</div>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" data-category="activities">
+                    <img src="images/gallery12.webp" alt="Atelier de Creare Bijuterii" loading="lazy">
+                    <div class="gallery-info">
+                        <div class="gallery-title">Atelier de Creare Bijuterii</div>
+                        <div class="gallery-description">Bijuterii unice create cu drag</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <div class="font-display text-2xl font-bold mb-4">✨ Sparkles Kids</div>
+                    <p class="text-gray-200">
+                        Creăm momente magice pentru copiii tăi. Petreceri de neuitat, pline de bucurie și distracție.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Link-uri Utile</h4>
+                    <div class="space-y-2">
+                        <div><a href="#services">Servicii</a></div>
+                        <div><a href="#team">Echipa</a></div>
+                        <div><a href="galerie.html">Galerie Foto</a></div>
+                        <div><a href="recenzii.html">Recenzii</a></div>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Contact</h4>
+                    <div class="space-y-2">
+                        <div>📧 contact@sparkles-kids.com</div>
+                        <div>📱 +40 758 679 909</div>
+                        <div>🕒 Program: 9:00 - 20:00</div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-600 pt-6 text-center text-gray-300">
+                © 2025 Sparkle Kids. Toate drepturile rezervate. | Design modern pentru experiențe magice ✨
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Scripts -->
+    <script>
+        // Mobile menu functions
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+        }
+        
+        function closeMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.remove('active');
+        }
+
+        // Gallery filter functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.gallery-filter-btn');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    button.classList.add('active');
+
+                    const filterValue = button.getAttribute('data-filter');
+
+                    galleryItems.forEach(item => {
+                        const category = item.getAttribute('data-category');
+                        
+                        if (filterValue === 'all' || filterValue === category) {
+                            item.style.display = 'block';
+                            setTimeout(() => {
+                                item.style.opacity = '1';
+                                item.style.transform = 'scale(1)';
+                            }, 10);
+                        } else {
+                            item.style.opacity = '0';
+                            item.style.transform = 'scale(0.8)';
+                            setTimeout(() => {
+                                item.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

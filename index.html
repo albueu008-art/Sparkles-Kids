@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sparkles Kids - Petreceri Magice pentru Copii</title>
+    
+    <meta name="description" content="Cele mai magice petreceri pentru copii la Sparkles Kids. Distracție garantată, animatori profesioniști, decoruri spectaculoase.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Preload critical images -->
+    <link rel="preload" as="image" href="images/gallery1.webp">
+    <link rel="preload" as="image" href="images/logo.webp">
+    
+    <!-- Navigation Styles -->
+    <link rel="stylesheet" href="css/nav-styles.css">
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="css/shared-styles.css">
+    <link rel="icon" type="image/x-icon" href="images/logo.ico">
+    <style>
+        :root {
+            --primary-coral: #FF8A80;
+            --primary-teal: #00695C;
+            --accent-yellow: #FFD54F;
+            --text-dark: #424242;
+            --bg-light: #FAFAFA;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-light);
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Image optimization */
+        img {
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+        }
+        
+        /* Lazy loading placeholder */
+        img[loading="lazy"] {
+            background: #f0f0f0;
+            transition: opacity 0.3s ease;
+        }
+        
+        img[loading="lazy"]:not([src]) {
+            opacity: 0;
+        }
+        
+        .font-display {
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        .navigation {
+            background: white;
+            border-bottom: 1px solid #E0E0E0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .hero-section {
+            padding-top: 80px;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--color-pink) 0%, var(--color-blue) 100%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, var(--color-yellow) 0%, transparent 25%),
+                radial-gradient(circle at 80% 80%, var(--color-purple) 0%, transparent 25%),
+                radial-gradient(circle at 50% 50%, var(--color-green) 0%, transparent 25%);
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            padding: 2rem 0;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-image {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 30%;
+            border-radius: 0 0 0 100px;
+            opacity: 0.9;
+        }
+        
+        .btn-primary {
+            background: var(--color-yellow);
+            color: var(--text-dark);
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+            box-shadow: 0 4px 15px rgba(255, 217, 61, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background: var(--color-orange);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 179, 71, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            padding: 14px 30px;
+            border: 3px solid white;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            border: 1px solid #E0E0E0;
+            transition: all 0.3s ease;
+            margin-bottom: 24px;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+        }
+        
+        .team-card {
+            background: white;
+            border-radius: 50%;
+            padding: 20px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .team-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .team-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top 25%;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .stats-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid #E0E0E0;
+        }
+        
+        .stats-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--color-orange), var(--color-red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        .footer {
+            background: linear-gradient(160deg, var(--color-blue), var(--color-purple));
+            color: white;
+            padding: 48px 0 24px;
+            margin-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 90% 10%, var(--color-pink) 0%, transparent 20%),
+                radial-gradient(circle at 10% 90%, var(--color-yellow) 0%, transparent 20%);
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        
+        .footer a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .footer a:hover {
+            opacity: 0.8;
+        }
+        
+        .special-offer {
+            background: var(--color-green);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 600;
+            margin: 20px 0;
+            font-size: 18px;
+            box-shadow: 0 4px 15px rgba(107, 203, 119, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .special-offer::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.1) 50%,
+                transparent 100%
+            );
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
+        }
+        
+        /* Mobile Navigation */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: white;
+            border-bottom: 1px solid #E0E0E0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            z-index: 999;
+        }
+        
+        .mobile-menu.active {
+            display: block;
+        }
+        
+        .mobile-menu a {
+            display: block;
+            padding: 16px 20px;
+            color: var(--text-dark);
+            text-decoration: none;
+            border-bottom: 1px solid #F0F0F0;
+            font-weight: 500;
+        }
+        
+        .mobile-menu a:hover {
+            background: var(--bg-light);
+            color: var(--primary-coral);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-section {
+                flex-direction: column;
+                text-align: center;
+                padding: 60px 20px;
+            }
+            
+            .hero-image {
+                position: relative;
+                width: 100%;
+                height: 300px;
+                border-radius: 0;
+                margin-top: 20px;
+            }
+            
+            .team-card {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .btn-primary, .btn-secondary {
+                display: block;
+                width: 100%;
+                margin-bottom: 12px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hidden.md\\:flex {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navigation">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between py-4">
+                <div class="font-display text-2xl font-bold text-primary-teal">
+                    ✨ Sparkles Kids
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-6">
+                    <a href="index.html" class="nav-link active text-gray-700 hover:text-primary-coral transition-colors font-medium">Acasă</a>
+                    <a href="#services" class="nav-link text-gray-700 hover:text-primary-coral transition-colors font-medium">Servicii</a>
+                    <a href="#team" class="nav-link text-gray-700 hover:text-primary-coral transition-colors font-medium">Echipa</a>
+                    <!-- <a href="galerie.html" class="nav-link text-gray-700 hover:text-primary-coral transition-colors font-medium">Galerie</a> -->
+                    <a href="recenzii.html" class="nav-link text-gray-700 hover:text-primary-coral transition-colors font-medium">Recenzii</a>
+                    <a href="rezervare.html" class="nav-link text-gray-700 hover:text-primary-coral transition-colors font-medium">Rezervă</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="mobile-menu">
+            <a href="index.html" onclick="closeMobileMenu()">Acasă</a>
+            <a href="#services" onclick="closeMobileMenu()">Servicii</a>
+            <a href="#team" onclick="closeMobileMenu()">Echipa</a>
+            <!-- <a href="galerie.html" onclick="closeMobileMenu()">Galerie</a> -->
+            <a href="recenzii.html" onclick="closeMobileMenu()">Recenzii</a>
+            <a href="rezervare.html" onclick="closeMobileMenu()">Rezervă Acum</a>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container mx-auto px-4">
+            <div class="hero-content flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 text-white">
+                    <h1 class="font-display text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                        Micii Visători 
+                        <span class="text-yellow-300">Strălucesc</span>
+                        Aici!
+                    </h1>
+                    <p class="text-xl lg:text-2xl mb-8 leading-relaxed">
+                        Magia petrecerilor începe cu noi – Distracție și zâmbete pentru micuții tăi!
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="rezervare.html" class="btn-primary">Rezervă</a>
+                        <a href="#services" class="btn-secondary">Vezi Serviciile</a>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 mt-8 lg:mt-0">
+                    <img src="images/gallery1.webp" alt="Petrecere pentru copii" class="hero-image" loading="eager" style="object-position: center 10%">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Special Offer Banner -->
+    <div class="special-offer container mx-auto px-4">
+        <div class="flex items-center justify-center gap-4">
+            <span class="text-2xl">🎉</span>
+            <div>
+                <strong>Ofertă Specială!</strong> 
+                Primii 50 de clienți ai lunii beneficiază de 
+                <strong>50% REDUCERE</strong> la orice petrecere!
+            </div>
+            <span class="text-2xl">🎉</span>
+        </div>
+    </div>
+    
+    <!-- Statistics Section -->
+    <!--
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="stats-card">
+                    <div class="stats-number">500+</div>
+                    <div class="text-gray-600 font-medium">Petreceri Organizate</div>
+                </div>
+                <div class="stats-card">
+                    <div class="stats-number">1000+</div>
+                    <div class="text-gray-600 font-medium">Copii Fericiți</div>
+                </div>
+                <div class="stats-card">
+                    <div class="stats-number">4.9</div>
+                    <div class="text-gray-600 font-medium">Rating Mediu</div>
+                </div>
+                <div class="stats-card">
+                    <div class="stats-number">3</div>
+                    <div class="text-gray-600 font-medium">Ani de Experiență</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    -->
+    
+    <!-- Services Section -->
+    <section id="services" class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-4xl lg:text-5xl font-bold text-gray-800 mb-6">
+                    Petrecerile Noastre
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Oferim experiențe magice adaptate fiecărei vârste și preferințe. De la petreceri tematice la aniversări de neuitat.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 lg:gap-12">
+                <div class="service-card">
+                    <div class="text-center mb-6">
+                        <img src="https://img.freepik.com/free-photo/children-celebrating-birthday_23-2148155339.jpg" alt="Petrecere cu tematică - copii la petrecere cu decorațiuni și costume tematice" class="w-full h-48 object-cover rounded-lg mb-4" loading="lazy">
+                        <h3 class="font-display text-2xl font-bold text-gray-800 mb-2">Petreceri cu Tematică</h3>
+                        <div class="text-3xl font-bold text-primary-coral mb-4">50 RON / persoană</div>
+                    </div>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-center gap-3">
+                            <span class="text-green-500 font-bold">✓</span>
+                            2h de distracție neîncetată pentru micuții tăi
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="text-green-500 font-bold">✓</span>
+                            Spectacole de dans împreună cu copii
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="text-green-500 font-bold">✓</span>
+                            Face painting și activități creative
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="text-green-500 font-bold">✓</span>
+                            Candy bar și surprize dulci
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="text-green-500 font-bold">✓</span>
+                            Atelier de craft și activități recreative
+                        </li>
+                    </ul>
+                    <div class="mt-6 text-center">
+                        <a href="rezervare.html?package=themed" class="btn-primary w-full block">Rezervă Acum</a>
+                    </div>
+                </div>
+                
+                <div class="service-card">
+                    <div class="text-center mb-6">
+                        <img src="https://img.freepik.com/free-photo/group-kids-celebrating-birthday_23-2148155333.jpg" alt="Petrecere aniversară - copii la masa festivă cu tort și baloane" class="w-full h-48 object-cover rounded-lg mb-4" loading="lazy">
+                        <h3 class="font-display text-2xl font-bold text-gray-800 mb-2">Petreceri Aniversare</h3>
+                        <div class="text-3xl font-bold text-primary-coral mb-4">1000 RON</div>
+                    </div>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-center gap-3">
+                            <span class="text-green-500 font-bold">✓</span>
+                            3h de distracție alături de echipa SparklesKids
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="text-green-500 font-bold">✓</span>
+                            Invitații digitale/printate incluse
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="text-green-500 font-bold">✓</span>
+                            Piñata și baloane cu aer
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="text-green-500 font-bold">✓</span>
+                            Supereroi animatori: Spiderman, Cenușăreasa
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="text-green-500 font-bold">✓</span>
+                            Arcadă de baloane și fotografie instant
+                        </li>
+                    </ul>
+                    <div class="mt-6 text-center">
+                        <a href="rezervare.html?package=anniversary" class="btn-primary w-full block">Rezervă Acum</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Team Section -->
+    <section id="team" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-4xl lg:text-5xl font-bold text-gray-800 mb-6">
+                    Echipa Noastră
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Profesioniști pasionați care aduc magia în fiecare petrecere. Experiență, creativitate și multă energie pozitivă.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- Talanca-Albu Eduard -->
+                <div class="text-center">
+                    <div class="team-card">
+                        <img src="images/eduard.webp" alt="Talanca-Albu Eduard" loading="lazy" style="object-position: center 35%">
+                    </div>
+                    <h3 class="font-display text-lg font-bold text-gray-800 mb-1">Talanca-Albu Eduard</h3>
+                    <p class="text-gray-600 text-sm">Fondator SparklesKids</p>
+                    <p class="text-gray-500 text-sm mt-2 px-4">Lider ambițios și politicos, remarcabil prin responsabilitate și perseverență constantă.</p>
+                </div>
+                
+                <!-- Chirnoaga Rares-Petrisor -->
+                
+                
+                <!-- Rimbu Tudor -->
+                <div class="text-center">
+                    <div class="team-card">
+                        <img src="images/tudor.webp" alt="Rimbu Tudor" loading="lazy">
+                    </div>
+                    <h3 class="font-display text-lg font-bold text-gray-800 mb-1">Rimbu Tudor</h3>
+                    <p class="text-gray-600 text-sm">Animator</p>
+                    <p class="text-gray-500 text-sm mt-2 px-4">Responsabil și implicat, sprijin de nădejde, găsește timp mereu pentru idei revoluționare.</p>
+                </div>
+                
+                <!-- Gutu Monica -->
+                <div class="text-center">
+                    <div class="team-card">
+                        <img src="images/monica.webp" alt="Gutu Monica" loading="lazy">
+                    </div>
+                    <h3 class="font-display text-lg font-bold text-gray-800 mb-1">Gutu Monica</h3>
+                    <p class="text-gray-600 text-sm">Animator</p>
+                    <p class="text-gray-500 text-sm mt-2 px-4">Responsabilă din copilărie, prietenă sinceră și dedicată, implicată total în fiecare sarcină.</p>
+                </div>
+                
+                <!-- Simiuc Teodora -->
+                <div class="text-center">
+                    <div class="team-card">
+                        <img src="images/teodora.webp" alt="Simiuc Teodora" loading="lazy">
+                    </div>
+                    <h3 class="font-display text-lg font-bold text-gray-800 mb-1">Simiuc Teodora</h3>
+                    <p class="text-gray-600 text-sm">Animator</p>
+                    <p class="text-gray-500 text-sm mt-2 px-4">Răbdătoare, caldă și veselă, aduce copiilor prietenie autentică și bucurie infinită.</p>
+                </div>
+                
+                <!-- Cojocaru Alexia -->
+                <div class="text-center">
+                    <div class="team-card">
+                        <img src="images/alexia.webp" alt="Cojocaru Alexia" loading="lazy" style="object-position: center 35%">
+                    </div>
+                    <h3 class="font-display text-lg font-bold text-gray-800 mb-1">Cojocaru Alexia</h3>
+                    <p class="text-gray-600 text-sm">Animator</p>
+                    <p class="text-gray-500 text-sm mt-2 px-4">Aduce zâmbete rapide, transformă sarcinile neplăcute în experiențe distractive și pline de energie.</p>
+                </div>
+                
+                <!-- Luncanu Tamara -->
+                <div class="text-center">
+                    <div class="team-card">
+                        <img src="images/tamara.webp" alt="Luncanu Tamara" loading="lazy">
+                    </div>
+                    <h3 class="font-display text-lg font-bold text-gray-800 mb-1">Luncanu Tamara</h3>
+                    <p class="text-gray-600 text-sm">Animator</p>
+                    <p class="text-gray-500 text-sm mt-2 px-4">Suflet cald și entuziast, preferata copiilor prin grijă sinceră și distracție echilibrată.</p>
+                </div>
+                
+                <!-- Puiu Otilia -->
+                <div class="text-center">
+                    <div class="team-card">
+                        <img src="images/otilia.webp" alt="Puiu Otilia" loading="lazy" style="object-position: center 15%">
+                    </div>
+                    <h3 class="font-display text-lg font-bold text-gray-800 mb-1">Puiu Otilia</h3>
+                    <p class="text-gray-600 text-sm">Animator</p>
+                    <p class="text-gray-500 text-sm mt-2 px-4">Creativă și jucăușă, inventează povești magice, transformând fiecare petrecere într-o aventură.</p>
+                </div>
+                
+                <!-- Aron Cosmina -->
+                <div class="text-center">
+                    <div class="team-card">
+                        <img src="images/cosmina.webp" alt="Aron Cosmina" loading="lazy">
+                    </div>
+                    <h3 class="font-display text-lg font-bold text-gray-800 mb-1">Aron Cosmina</h3>
+                    <p class="text-gray-600 text-sm">Animator</p>
+                    <p class="text-gray-500 text-sm mt-2 px-4">Discretă, calmă și implicată, contribuie mereu eficient și stabil în toate proiectele.</p>
+                </div>
+                
+                <!-- Lazar Cristiana -->
+                <div class="text-center">
+                    <div class="team-card">
+                        <img src="images/cristiana.webp" alt="Lazar Cristiana" loading="lazy" style="object-position: center 35%">
+                    </div>
+                    <h3 class="font-display text-lg font-bold text-gray-800 mb-1">Lazar Cristiana</h3>
+                    <p class="text-gray-600 text-sm">Animator</p>
+                    <p class="text-gray-500 text-sm mt-2 px-4">Veselă și energică, mereu gata să cânte, danseze și să încânte copiii.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Gallery Preview Section -->
+    <!--
+    <section id="gallery" class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-4xl lg:text-5xl font-bold text-gray-800 mb-6">
+                    Galerie Foto
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Vezi momentele magice create la petrecerile noastre. Fiecare imagine spune o poveste de bucurie și distracție.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="overflow-hidden rounded-lg">
+                    <img src="images/gallery4.webp" alt="Petrecere tematică" loading="lazy" class="w-full h-48 object-cover hover:scale-110 transition-transform duration-300">
+                </div>
+                <div class="overflow-hidden rounded-lg">
+                    <img src="images/gallery5.webp" alt="Decoruri festive" loading="lazy" class="w-full h-48 object-cover hover:scale-110 transition-transform duration-300">
+                </div>
+                <div class="overflow-hidden rounded-lg">
+                    <img src="images/gallery6.webp" alt="Zonă de joacă" loading="lazy" class="w-full h-48 object-cover hover:scale-110 transition-transform duration-300">
+                </div>
+                <div class="overflow-hidden rounded-lg">
+                    <img src="images/gallery7.webp" alt="Activități creative" loading="lazy" class="w-full h-48 object-cover hover:scale-110 transition-transform duration-300">
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="galerie.html" class="btn-secondary text-lg px-8 py-4">Vezi Toată Galeria</a>
+            </div>
+        </div>
+    </section>
+    -->
+    
+    <!-- Contact Section -->
+    <section class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="font-display text-4xl lg:text-5xl font-bold text-gray-800 mb-6">
+                    Contactează-ne
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Suntem aici să transformăm visurile copilului tău în realitate. Contactează-ne pentru orice întrebare sau rezervare.
+                </p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div>
+                        <h3 class="font-display text-2xl font-bold text-gray-800 mb-6">Informații Contact</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-primary-coral rounded-full flex items-center justify-center text-white font-bold text-xl">
+                                    📧
+                                </div>
+                                <div>
+                                    <div class="font-semibold text-gray-800 text-lg">Email</div>
+                                    <div class="text-gray-600 text-lg">contact@sparkles-kids.com</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-primary-coral rounded-full flex items-center justify-center text-white font-bold text-xl">
+                                    📱
+                                </div>
+                                <div>
+                                    <div class="font-semibold text-gray-800 text-lg">Telefon</div>
+                                    <div class="text-gray-600 text-lg">+40 758 679 909</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-primary-coral rounded-full flex items-center justify-center text-white font-bold text-xl">
+                                    🕒
+                                </div>
+                                <div>
+                                    <div class="font-semibold text-gray-800 text-lg">Program</div>
+                                    <div class="text-gray-600 text-lg">Luni - Duminică: 9:00 - 20:00</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="bg-white p-8 rounded-lg shadow-lg border">
+                            <h4 class="font-display text-xl font-bold text-gray-800 mb-6">Pregătit pentru magie?</h4>
+                            <p class="text-gray-600 mb-6">
+                                Nu aștepta! Rezervă acum și dă-i copilului tău petrecerea la care visează. 
+                                Echipa noastră este pregătită să creeze momente de neuitat.
+                            </p>
+                            <a href="rezervare.html" class="btn-primary w-full text-center block">
+                                Rezervă Petrecerea Acum
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <div class="font-display text-2xl font-bold mb-4">✨ Sparkles Kids</div>
+                    <p class="text-gray-200">
+                        Creăm momente magice pentru copiii tăi. Petreceri de neuitat, pline de bucurie și distracție.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Link-uri Utile</h4>
+                    <div class="space-y-2">
+                        <div><a href="#services">Servicii</a></div>
+                        <div><a href="#team">Echipa</a></div>
+                        <!-- <div><a href="galerie.html">Galerie Foto</a></div> -->
+                        <div><a href="recenzii.html">Recenzii</a></div>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Contact</h4>
+                    <div class="space-y-2">
+                        <div>📧 contact@sparkles-kids.com</div>
+                        <div>📱 +40 758 679 909</div>
+                        <div>🕒 Program: 9:00 - 20:00</div>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-600 pt-6 text-center text-gray-300">
+                © 2025 Sparkle Kids. Toate drepturile rezervate. | Design modern pentru experiențe magice ✨
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript for mobile menu -->
+    <script>
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+        }
+        
+        function closeMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.remove('active');
+        }
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(e) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuButton = document.querySelector('.mobile-menu-btn');
+            
+            if (!mobileMenu.contains(e.target) && !menuButton.contains(e.target)) {
+                mobileMenu.classList.remove('active');
+            }
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Handle active navigation state
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sections = document.querySelectorAll('section[id]');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
